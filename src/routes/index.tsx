@@ -102,9 +102,9 @@ function Intro() {
         <span className="h-px w-8 bg-ink" />
       </div>
 
-      <h2 className="mx-auto max-w-4xl font-display text-5xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-8xl">
+      <h2 className="mx-auto max-w-5xl text-center font-display text-5xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-8xl">
         <span
-          className="block transition-all duration-[900ms] ease-out"
+          className="block text-center transition-all duration-[900ms] ease-out"
           style={{
             opacity: mounted ? 1 : 0,
             transform: `translateY(${mounted ? 0 : 28}px)`,
@@ -114,7 +114,7 @@ function Intro() {
           Who drives
         </span>
         <span
-          className="block italic font-normal text-muted-foreground transition-all duration-[900ms] ease-out"
+          className="block text-center italic font-normal text-muted-foreground transition-all duration-[900ms] ease-out"
           style={{
             opacity: mounted ? 1 : 0,
             transform: `translateY(${mounted ? 0 : 28}px)`,
@@ -124,20 +124,23 @@ function Intro() {
           your car
         </span>
         <span
-          className="relative inline-block transition-all duration-[900ms] ease-out"
+          className="block text-center transition-all duration-[900ms] ease-out"
           style={{
             opacity: mounted ? 1 : 0,
             transform: `translateY(${mounted ? 0 : 28}px)`,
             transitionDelay: "620ms",
           }}
         >
-          when you can't?
-          <span
-            className="absolute -bottom-1 left-0 h-3 rounded-full bg-taxi -z-10 transition-[width] duration-[1200ms] ease-out"
-            style={{ width: mounted ? "100%" : "0%", transitionDelay: "1100ms" }}
-          />
+          <span className="relative inline-block">
+            when you can't?
+            <span
+              className="absolute -bottom-1 left-0 h-3 rounded-full bg-taxi -z-10 transition-[width] duration-[1200ms] ease-out"
+              style={{ width: mounted ? "100%" : "0%", transitionDelay: "1100ms" }}
+            />
+          </span>
         </span>
       </h2>
+
 
       <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
         <span>Scroll to explore</span>
