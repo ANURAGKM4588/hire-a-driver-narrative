@@ -257,25 +257,30 @@ function How() {
       <div className="mx-auto max-w-[1400px] px-6 py-24 lg:px-10 lg:py-32">
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <div>
-            <div className="text-xs font-medium uppercase tracking-[0.25em] text-taxi">
+            <Reveal variant="up" className="text-xs font-medium uppercase tracking-[0.25em] text-taxi">
               — How it works
-            </div>
-            <h2 className="mt-4 font-display text-5xl font-bold leading-[0.95] lg:text-6xl">
+            </Reveal>
+            <Reveal as="h2" variant="up" delay={120} className="mt-4 font-display text-5xl font-bold leading-[0.95] lg:text-6xl">
               Three taps.
               <br />
               One driver.
-            </h2>
+            </Reveal>
           </div>
-          <p className="max-w-sm text-bone/60">
+          <Reveal as="p" variant="up" delay={240} className="max-w-sm text-bone/60">
             Bookings happen in the PILOTED app. This site is here to tell you
             who we are before you download it.
-          </p>
+          </Reveal>
         </div>
 
         <div className="mt-16 grid grid-cols-1 gap-px bg-bone/10 md:grid-cols-3">
-          {steps.map((s) => (
-            <div key={s.n} className="flex flex-col justify-between bg-ink p-8 lg:p-10">
-              <div className="font-display text-6xl font-extrabold text-taxi lg:text-7xl">
+          {steps.map((s, i) => (
+            <Reveal
+              key={s.n}
+              variant="up"
+              delay={i * 160}
+              className="group flex flex-col justify-between bg-ink p-8 transition-colors hover:bg-bone/[0.04] lg:p-10"
+            >
+              <div className="font-display text-6xl font-extrabold text-taxi transition-transform duration-500 group-hover:-translate-y-1 lg:text-7xl">
                 {s.n}
               </div>
               <div className="mt-16">
@@ -283,8 +288,9 @@ function How() {
                   {s.t}
                 </h3>
                 <p className="mt-3 text-bone/60">{s.d}</p>
+                <div className="mt-6 h-px w-0 bg-taxi transition-all duration-700 group-hover:w-full" />
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>
