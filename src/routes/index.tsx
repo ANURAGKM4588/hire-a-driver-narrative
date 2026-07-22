@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { ScrollCinematic } from "@/components/ScrollCinematic";
 import bannerDriver from "@/assets/banner-driver.jpg";
-import carBlack from "@/assets/car-black.png.asset.json";
+import carBlack from "@/assets/car-hero.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -229,16 +229,16 @@ function Hero() {
               />
               {/* Rotating wheels — positioned to match the sedan illustration */}
               {[
-                { left: "20.5%" },
-                { left: "74.5%" },
+                { left: "26.3%" },
+                { left: "78.8%" },
               ].map((pos, i) => (
                 <div
                   key={i}
                   className="absolute"
                   style={{
                     left: pos.left,
-                    top: "72%",
-                    width: "11.5%",
+                    top: "70%",
+                    width: "9.2%",
                     aspectRatio: "1 / 1",
                     transform: `translate(-50%, -50%) rotate(${wheelRotate}deg)`,
                     willChange: "transform",
