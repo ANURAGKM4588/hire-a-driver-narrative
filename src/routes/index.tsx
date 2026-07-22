@@ -122,9 +122,9 @@ function Hero() {
   const questionOpacity = 1 - questionOut;
   const questionShift = questionOut * -30;
 
-  // Phase 2 (0.15 – 0.90): car drives across.
+  // Phase 2 (0.15 – 0.90): car drives across (fully off-screen at both ends).
   const carP = seg(0.15, 0.9);
-  const carX = -120 + carP * 260; // -120% -> +140%
+  const carX = -180 + carP * 360; // -180% -> +180%
   const wheelRotate = carP * 1440;
 
   // Phase 3 (0.35 – 0.95): old hero content reveals behind the car, staggered.
