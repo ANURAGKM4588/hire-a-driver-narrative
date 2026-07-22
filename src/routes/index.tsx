@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { ScrollCinematic } from "@/components/ScrollCinematic";
 import bannerDriver from "@/assets/banner-driver.jpg";
