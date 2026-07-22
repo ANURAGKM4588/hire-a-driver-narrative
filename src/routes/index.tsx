@@ -1,24 +1,474 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "PILOTED — Your car. Our driver." },
+      {
+        name: "description",
+        content:
+          "PILOTED is a driver-providing agency. You keep the wheel of your own car — we bring the hands. Vetted professional drivers, on demand.",
+      },
+      { property: "og:title", content: "PILOTED — Your car. Our driver." },
+      {
+        property: "og:description",
+        content:
+          "A driver-providing agency. Keep your car, borrow a professional to drive it.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
+    <div className="min-h-screen bg-background text-foreground">
+      <Nav />
+      <Hero />
+      <Ticker />
+      <Manifesto />
+      <How />
+      <Standards />
+      <ForWho />
+      <AppCTA />
+      <Footer />
+    </div>
+  );
+}
+
+function Nav() {
+  return (
+    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
+      <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 lg:px-10">
+        <a href="#" className="flex items-center gap-2">
+          <span className="grid h-7 w-7 place-items-center bg-ink text-taxi font-display font-bold text-sm">
+            P
+          </span>
+          <span className="font-display text-lg font-bold tracking-tight">
+            PILOTED
+          </span>
+        </a>
+        <nav className="hidden gap-8 text-sm text-muted-foreground md:flex">
+          <a href="#story" className="hover:text-foreground transition-colors">Story</a>
+          <a href="#how" className="hover:text-foreground transition-colors">How it works</a>
+          <a href="#standards" className="hover:text-foreground transition-colors">Standards</a>
+          <a href="#who" className="hover:text-foreground transition-colors">Who we serve</a>
+        </nav>
+        <a
+          href="#app"
+          className="inline-flex items-center gap-2 bg-ink px-4 py-2 text-xs font-semibold uppercase tracking-widest text-taxi transition-transform hover:-translate-y-0.5"
+        >
+          Get the app
+          <span aria-hidden>→</span>
+        </a>
+      </div>
+    </header>
+  );
+}
+
+function Hero() {
+  return (
+    <section className="relative overflow-hidden border-b border-border">
+      <div className="mx-auto grid max-w-[1400px] grid-cols-1 lg:grid-cols-2">
+        {/* Left */}
+        <div className="flex flex-col justify-between px-6 pt-16 pb-14 lg:px-10 lg:pt-24 lg:pb-20">
+          <div>
+            <div className="mb-8 inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+              <span className="h-px w-8 bg-ink" />
+              A driver-providing agency
+            </div>
+            <h1 className="font-display text-[14vw] leading-[0.85] font-extrabold tracking-tighter sm:text-[10vw] lg:text-[8.5vw] xl:text-[7.5rem]">
+              Your car.
+              <br />
+              <span className="italic font-normal text-muted-foreground">Our</span>{" "}
+              <span className="relative inline-block">
+                driver.
+                <span className="absolute -bottom-2 left-0 h-3 w-full bg-taxi -z-0" />
+              </span>
+            </h1>
+            <p className="mt-10 max-w-md text-base leading-relaxed text-muted-foreground">
+              You already own the car you love. We bring the professional who
+              drives it — for the school run, the long night home, the airport
+              dash, the workday behind you.
+            </p>
+          </div>
+
+          <div className="mt-12 flex flex-wrap items-center gap-6">
+            <a
+              href="#app"
+              className="group inline-flex items-center gap-3 bg-ink px-6 py-4 text-sm font-semibold uppercase tracking-widest text-taxi"
+            >
+              Book on the app
+              <span className="transition-transform group-hover:translate-x-1" aria-hidden>
+                →
+              </span>
+            </a>
+            <a
+              href="#story"
+              className="text-sm font-medium underline decoration-taxi decoration-4 underline-offset-8 hover:decoration-ink"
+            >
+              Read the story
+            </a>
+          </div>
+        </div>
+
+        {/* Right */}
+        <div className="relative min-h-[420px] bg-ink text-taxi lg:min-h-[720px]">
+          <div className="absolute inset-0 opacity-20 checker-stripe" />
+          <div className="relative flex h-full flex-col justify-between p-8 lg:p-12">
+            <div className="flex items-start justify-between">
+              <span className="font-display text-xs uppercase tracking-[0.3em] text-taxi/70">
+                / 001 — Est. 2025
+              </span>
+              <span className="font-display text-xs uppercase tracking-[0.3em] text-taxi/70">
+                Drivers, not rides
+              </span>
+            </div>
+
+            <div className="my-16 lg:my-0">
+              <div className="font-display text-[22vw] font-extrabold leading-none tracking-tighter sm:text-[16vw] lg:text-[14vw]">
+                24/7
+              </div>
+              <p className="mt-4 max-w-xs text-sm text-taxi/70">
+                Vetted, uniformed, licensed drivers — dispatched to your
+                doorstep, ready to take your wheel.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-3 gap-6 border-t border-taxi/20 pt-8 text-taxi">
+              <Stat n="420+" label="Drivers on call" />
+              <Stat n="14" label="Cities live" />
+              <Stat n="4.9" label="Avg. rating" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Stat({ n, label }: { n: string; label: string }) {
+  return (
+    <div>
+      <div className="font-display text-3xl font-bold lg:text-4xl">{n}</div>
+      <div className="mt-1 text-[10px] uppercase tracking-widest text-taxi/60">
+        {label}
+      </div>
+    </div>
+  );
+}
+
+function Ticker() {
+  const words = [
+    "Your car",
+    "Our driver",
+    "School runs",
+    "Airport dashes",
+    "Late nights",
+    "Business hours",
+    "Weekend errands",
+    "Long drives home",
+  ];
+  const line = [...words, ...words];
+  return (
+    <div className="overflow-hidden border-b border-border bg-taxi py-5">
+      <div className="marquee flex whitespace-nowrap">
+        {line.map((w, i) => (
+          <span
+            key={i}
+            className="mx-8 font-display text-2xl font-bold uppercase tracking-tight text-ink"
+          >
+            {w} <span className="mx-6 text-ink/40">✦</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Manifesto() {
+  return (
+    <section id="story" className="border-b border-border">
+      <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-16 px-6 py-24 lg:grid-cols-12 lg:px-10 lg:py-32">
+        <div className="lg:col-span-4">
+          <div className="sticky top-32">
+            <div className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+              — The Story
+            </div>
+            <h2 className="mt-4 font-display text-4xl font-bold leading-[0.95] lg:text-5xl">
+              We don't rent
+              <br />
+              cars.
+              <br />
+              <span className="text-taxi-deep">We lend hands.</span>
+            </h2>
+          </div>
+        </div>
+        <div className="space-y-8 text-lg leading-relaxed text-foreground/90 lg:col-span-7 lg:col-start-6 lg:text-xl">
+          <p>
+            Every other service asks you to give something up — your car, your
+            route, your control. PILOTED starts from the opposite idea. You
+            already have a car you love. What you don't always have is the time,
+            the energy, or the licence to drive it.
+          </p>
+          <p>
+            So we built an agency of drivers. Not a fleet. Not a rideshare. Just
+            people. Vetted, uniformed, insured, and dispatched to your door in
+            minutes.
+          </p>
+          <p className="font-display text-2xl font-semibold tracking-tight text-ink lg:text-3xl">
+            You keep the wheel. We bring the hands.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function How() {
+  const steps = [
+    {
+      n: "01",
+      t: "Open the app",
+      d: "Tell us where, when, and how long you need a driver. That's it.",
+    },
+    {
+      n: "02",
+      t: "We dispatch a driver",
+      d: "A vetted PILOTED driver arrives at your door — uniformed, on time, ready.",
+    },
+    {
+      n: "03",
+      t: "You ride. We drive.",
+      d: "Sit back. Answer emails. Sleep. Talk. It's still your car.",
+    },
+  ];
+  return (
+    <section id="how" className="border-b border-border bg-ink text-bone">
+      <div className="mx-auto max-w-[1400px] px-6 py-24 lg:px-10 lg:py-32">
+        <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+          <div>
+            <div className="text-xs font-medium uppercase tracking-[0.25em] text-taxi">
+              — How it works
+            </div>
+            <h2 className="mt-4 font-display text-5xl font-bold leading-[0.95] lg:text-6xl">
+              Three taps.
+              <br />
+              One driver.
+            </h2>
+          </div>
+          <p className="max-w-sm text-bone/60">
+            Bookings happen in the PILOTED app. This site is here to tell you
+            who we are before you download it.
+          </p>
+        </div>
+
+        <div className="mt-16 grid grid-cols-1 gap-px bg-bone/10 md:grid-cols-3">
+          {steps.map((s) => (
+            <div key={s.n} className="flex flex-col justify-between bg-ink p-8 lg:p-10">
+              <div className="font-display text-6xl font-extrabold text-taxi lg:text-7xl">
+                {s.n}
+              </div>
+              <div className="mt-16">
+                <h3 className="font-display text-2xl font-semibold text-bone">
+                  {s.t}
+                </h3>
+                <p className="mt-3 text-bone/60">{s.d}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Standards() {
+  const items = [
+    { t: "Vetted", d: "Background, licence and driving-record checks — every driver, every quarter." },
+    { t: "Trained", d: "In-house academy: defensive driving, hospitality, discretion." },
+    { t: "Uniformed", d: "You'll know the driver at your door is ours the moment you see them." },
+    { t: "Insured", d: "Every trip is covered end-to-end. Your car stays your car." },
+  ];
+  return (
+    <section id="standards" className="border-b border-border">
+      <div className="mx-auto max-w-[1400px] px-6 py-24 lg:px-10 lg:py-32">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <div className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+              — The Standard
+            </div>
+            <h2 className="mt-4 font-display text-5xl font-bold leading-[0.95] lg:text-6xl">
+              A driver you'd
+              <br />
+              hand your keys to
+              <span className="text-taxi-deep">.</span>
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 gap-px bg-border sm:grid-cols-2 lg:col-span-7">
+            {items.map((it) => (
+              <div key={it.t} className="bg-background p-8">
+                <div className="flex items-center gap-3">
+                  <span className="h-2 w-2 bg-taxi" />
+                  <h3 className="font-display text-xl font-semibold">{it.t}</h3>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {it.d}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ForWho() {
+  const rows = [
+    ["01", "Parents", "The school run, without the school run."],
+    ["02", "Executives", "Emails on the backseat of your own car."],
+    ["03", "After-hours", "Had a glass. Home safe. Car home too."],
+    ["04", "Elderly & family", "A trusted driver on the days you shouldn't."],
+    ["05", "Weddings & events", "A day of chauffeured calm — in your own car."],
+  ];
+  return (
+    <section id="who" className="border-b border-border">
+      <div className="mx-auto max-w-[1400px] px-6 py-24 lg:px-10 lg:py-32">
+        <div className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+          — Who we serve
+        </div>
+        <h2 className="mt-4 max-w-3xl font-display text-5xl font-bold leading-[0.95] lg:text-6xl">
+          Anyone with a car and a reason not to drive it.
+        </h2>
+
+        <div className="mt-16 border-t border-border">
+          {rows.map(([n, t, d]) => (
+            <div
+              key={n}
+              className="group grid grid-cols-12 items-center gap-4 border-b border-border py-6 transition-colors hover:bg-taxi/20"
+            >
+              <div className="col-span-2 font-display text-sm text-muted-foreground md:col-span-1">
+                {n}
+              </div>
+              <div className="col-span-10 font-display text-2xl font-semibold tracking-tight md:col-span-3 lg:text-3xl">
+                {t}
+              </div>
+              <div className="col-span-12 text-muted-foreground md:col-span-7 md:col-start-6 md:text-right lg:text-lg">
+                {d}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AppCTA() {
+  return (
+    <section id="app" className="border-b border-border bg-taxi text-ink">
+      <div className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-10 px-6 py-24 lg:grid-cols-2 lg:px-10 lg:py-32">
+        <div>
+          <div className="text-xs font-medium uppercase tracking-[0.25em] text-ink/70">
+            — Book only in the app
+          </div>
+          <h2 className="mt-4 font-display text-5xl font-bold leading-[0.9] lg:text-7xl">
+            Download.
+            <br />
+            Tap. Drive.
+          </h2>
+          <p className="mt-6 max-w-md text-ink/80">
+            The website tells the story. The app does the work. Bookings,
+            dispatch and driver tracking live entirely in the PILOTED app.
+          </p>
+        </div>
+        <div className="flex flex-col gap-4 sm:flex-row lg:justify-end">
+          <StoreButton store="App Store" sub="Download on the" />
+          <StoreButton store="Google Play" sub="Get it on" />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StoreButton({ store, sub }: { store: string; sub: string }) {
+  return (
+    <a
+      href="#"
+      className="group flex min-w-[220px] items-center gap-4 bg-ink px-6 py-5 text-taxi transition-transform hover:-translate-y-1"
     >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+      <span className="grid h-10 w-10 place-items-center border border-taxi/40 font-display text-lg font-bold">
+        ▶
+      </span>
+      <span className="flex flex-col leading-tight">
+        <span className="text-[10px] uppercase tracking-widest text-taxi/60">
+          {sub}
+        </span>
+        <span className="font-display text-lg font-semibold">{store}</span>
+      </span>
+    </a>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="bg-background">
+      <div className="mx-auto max-w-[1400px] px-6 py-16 lg:px-10">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
+          <div className="md:col-span-2">
+            <div className="flex items-center gap-2">
+              <span className="grid h-7 w-7 place-items-center bg-ink text-taxi font-display font-bold text-sm">
+                P
+              </span>
+              <span className="font-display text-lg font-bold tracking-tight">
+                PILOTED
+              </span>
+            </div>
+            <p className="mt-4 max-w-sm text-sm text-muted-foreground">
+              A driver-providing agency. Your car. Our driver. Bookings happen
+              in the app.
+            </p>
+          </div>
+          <FooterCol
+            title="Company"
+            items={["Story", "Standards", "Careers", "Press"]}
+          />
+          <FooterCol
+            title="Contact"
+            items={["hello@piloted.co", "+000 000 0000", "Instagram", "LinkedIn"]}
+          />
+        </div>
+        <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-border pt-8 text-xs text-muted-foreground md:flex-row md:items-center">
+          <div>© {new Date().getFullYear()} PILOTED. All rights reserved.</div>
+          <div className="flex items-center gap-4">
+            <span>Terms</span>
+            <span>Privacy</span>
+            <span className="checker-stripe h-3 w-16" aria-hidden />
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function FooterCol({ title, items }: { title: string; items: string[] }) {
+  return (
+    <div>
+      <div className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+        {title}
+      </div>
+      <ul className="mt-4 space-y-2 text-sm">
+        {items.map((i) => (
+          <li key={i}>
+            <a href="#" className="hover:text-taxi-deep transition-colors">
+              {i}
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
