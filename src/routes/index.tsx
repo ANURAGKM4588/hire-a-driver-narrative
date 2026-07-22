@@ -52,17 +52,17 @@ function Nav() {
           </span>
         </a>
         <nav className="hidden gap-8 text-sm text-muted-foreground md:flex">
-          <a href="#story" className="hover:text-foreground transition-colors">Story</a>
-          <a href="#how" className="hover:text-foreground transition-colors">How it works</a>
-          <a href="#standards" className="hover:text-foreground transition-colors">Standards</a>
-          <a href="#who" className="hover:text-foreground transition-colors">Who we serve</a>
+          <a href="#story" className="link-underline hover:text-foreground transition-colors">Story</a>
+          <a href="#how" className="link-underline hover:text-foreground transition-colors">How it works</a>
+          <a href="#standards" className="link-underline hover:text-foreground transition-colors">Standards</a>
+          <a href="#who" className="link-underline hover:text-foreground transition-colors">Who we serve</a>
         </nav>
         <a
           href="#app"
-          className="inline-flex items-center gap-2 bg-ink px-4 py-2 text-xs font-semibold uppercase tracking-widest text-taxi transition-transform hover:-translate-y-0.5"
+          className="group relative inline-flex items-center gap-2 overflow-hidden bg-ink px-4 py-2 text-xs font-semibold uppercase tracking-widest text-taxi transition-transform hover:-translate-y-0.5"
         >
           Get the app
-          <span aria-hidden>→</span>
+          <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
         </a>
       </div>
     </header>
