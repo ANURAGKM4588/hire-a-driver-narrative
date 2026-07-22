@@ -80,15 +80,78 @@ function Nav() {
   );
 }
 
-function Hero() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const [p, setP] = useState(0); // 0..1 scroll progress through the hero
+function Intro() {
   const [mounted, setMounted] = useState(false);
-
   useEffect(() => {
     const t = requestAnimationFrame(() => setMounted(true));
     return () => cancelAnimationFrame(t);
   }, []);
+
+  return (
+    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-6 text-center">
+      <div
+        className="mb-8 inline-flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.35em] text-muted-foreground transition-all duration-700"
+        style={{
+          opacity: mounted ? 1 : 0,
+          transform: `translateY(${mounted ? 0 : 12}px)`,
+          transitionDelay: "80ms",
+        }}
+      >
+        <span className="h-px w-8 bg-ink" />
+        PILOTED
+        <span className="h-px w-8 bg-ink" />
+      </div>
+
+      <h2 className="mx-auto max-w-4xl font-display text-5xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-8xl">
+        <span
+          className="block transition-all duration-[900ms] ease-out"
+          style={{
+            opacity: mounted ? 1 : 0,
+            transform: `translateY(${mounted ? 0 : 28}px)`,
+            transitionDelay: "220ms",
+          }}
+        >
+          Who drives
+        </span>
+        <span
+          className="block italic font-normal text-muted-foreground transition-all duration-[900ms] ease-out"
+          style={{
+            opacity: mounted ? 1 : 0,
+            transform: `translateY(${mounted ? 0 : 28}px)`,
+            transitionDelay: "420ms",
+          }}
+        >
+          your car
+        </span>
+        <span
+          className="relative inline-block transition-all duration-[900ms] ease-out"
+          style={{
+            opacity: mounted ? 1 : 0,
+            transform: `translateY(${mounted ? 0 : 28}px)`,
+            transitionDelay: "620ms",
+          }}
+        >
+          when you can't?
+          <span
+            className="absolute -bottom-1 left-0 h-3 rounded-full bg-taxi -z-10 transition-[width] duration-[1200ms] ease-out"
+            style={{ width: mounted ? "100%" : "0%", transitionDelay: "1100ms" }}
+          />
+        </span>
+      </h2>
+
+      <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
+        <span>Scroll to explore</span>
+        <span className="grid h-10 w-10 animate-bounce place-items-center rounded-full border border-ink/30 text-base text-ink">
+          ↓
+        </span>
+      </div>
+    </section>
+  );
+}
+
+function Hero() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [p, setP] = useState(0); // 0..1 scroll progress through the hero
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -118,20 +181,17 @@ function Hero() {
   const clamp = (v: number, a = 0, b = 1) => Math.min(Math.max(v, a), b);
   const seg = (start: number, end: number) => clamp((p - start) / (end - start));
 
-  // Intro question — static center, only fades out on scroll.
-  const questionOpacity = 1 - seg(0.02, 0.18);
-
   // Car drives across (fully off-screen at both ends).
-  const carP = seg(0.18, 0.82);
+  const carP = seg(0.0, 0.75);
   const carX = -180 + carP * 360; // -180% -> +180%
   const wheelRotate = carP * 1440;
 
   // Hero content reveals BEHIND the car, staggered.
-  const eyebrowP = seg(0.3, 0.4);
-  const titleP = seg(0.4, 0.55);
-  const subP = seg(0.55, 0.68);
-  const ctaP = seg(0.68, 0.8);
-  const statsP = seg(0.8, 0.92);
+  const eyebrowP = seg(0.15, 0.28);
+  const titleP = seg(0.28, 0.45);
+  const subP = seg(0.45, 0.6);
+  const ctaP = seg(0.6, 0.75);
+  const statsP = seg(0.75, 0.9);
 
   const revealStyle = (v: number) => ({
     opacity: v,
@@ -142,77 +202,11 @@ function Hero() {
     <section
       ref={sectionRef}
       className="relative bg-background"
-      style={{ height: "340vh" }}
+      style={{ height: "260vh" }}
     >
       <div className="sticky top-0 flex h-screen items-center overflow-hidden border-b border-border">
-        {/* INTRO — Question headline, statically centered, fades out on scroll */}
-        <div
-          className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center px-6 text-center"
-          style={{ opacity: questionOpacity }}
-          aria-hidden={questionOpacity < 0.05}
-        >
-          <div
-            className="mb-8 inline-flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.35em] text-muted-foreground transition-all duration-700"
-            style={{
-              opacity: mounted ? 1 : 0,
-              transform: `translateY(${mounted ? 0 : 12}px)`,
-              transitionDelay: "80ms",
-            }}
-          >
-            <span className="h-px w-8 bg-ink" />
-            PILOTED
-            <span className="h-px w-8 bg-ink" />
-          </div>
-
-          <h2 className="mx-auto max-w-4xl font-display text-5xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-8xl">
-            <span
-              className="block transition-all duration-[900ms] ease-out"
-              style={{
-                opacity: mounted ? 1 : 0,
-                transform: `translateY(${mounted ? 0 : 28}px)`,
-                transitionDelay: "220ms",
-              }}
-            >
-              Who drives
-            </span>
-            <span
-              className="block italic font-normal text-muted-foreground transition-all duration-[900ms] ease-out"
-              style={{
-                opacity: mounted ? 1 : 0,
-                transform: `translateY(${mounted ? 0 : 28}px)`,
-                transitionDelay: "420ms",
-              }}
-            >
-              your car
-            </span>
-            <span
-              className="relative inline-block transition-all duration-[900ms] ease-out"
-              style={{
-                opacity: mounted ? 1 : 0,
-                transform: `translateY(${mounted ? 0 : 28}px)`,
-                transitionDelay: "620ms",
-              }}
-            >
-              when you can't?
-              <span
-                className="absolute -bottom-1 left-0 h-3 rounded-full bg-taxi -z-10 transition-[width] duration-[1200ms] ease-out"
-                style={{ width: mounted ? "100%" : "0%", transitionDelay: "1100ms" }}
-              />
-            </span>
-          </h2>
-
-          <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
-            <span>Scroll to explore</span>
-            <span className="grid h-10 w-10 animate-bounce place-items-center rounded-full border border-ink/30 text-base text-ink">
-              ↓
-            </span>
-          </div>
-        </div>
-
-
-
-
         <div className="relative mx-auto w-full max-w-[1400px] px-6 lg:px-10">
+
 
           {/* PHASE 3 — Old hero content, reveals BEHIND the car (z-0) */}
           <div className="relative z-0 mx-auto max-w-3xl text-center">
