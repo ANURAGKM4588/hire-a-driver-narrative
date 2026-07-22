@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Reveal } from "@/components/Reveal";
 import { ScrollCinematic } from "@/components/ScrollCinematic";
 import bannerDriver from "@/assets/banner-driver.jpg";
-import heroDriver from "@/assets/hero-driver.jpg.asset.json";
+import carLine from "@/assets/car-line.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
