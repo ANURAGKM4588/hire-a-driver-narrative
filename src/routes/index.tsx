@@ -400,29 +400,31 @@ function ForWho() {
       <div className="mx-auto max-w-[1400px] px-6 py-24 lg:px-10 lg:py-32">
         <div className="grid grid-cols-1 items-end gap-10 lg:grid-cols-12">
           <div className="lg:col-span-8">
-            <div className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+            <Reveal variant="up" className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
               — Who it's for
-            </div>
-            <h2 className="mt-4 font-display text-5xl font-bold leading-[0.9] lg:text-7xl">
+            </Reveal>
+            <Reveal as="h2" variant="up" delay={120} className="mt-4 font-display text-5xl font-bold leading-[0.9] lg:text-7xl">
               Built for the people
               <br />
               who'd rather{" "}
               <span className="italic font-normal text-muted-foreground">not</span>{" "}
               be driving
               <span className="text-taxi-deep">.</span>
-            </h2>
+            </Reveal>
           </div>
-          <p className="text-muted-foreground lg:col-span-4 lg:text-right">
+          <Reveal as="p" variant="up" delay={240} className="text-muted-foreground lg:col-span-4 lg:text-right">
             Five kinds of moments where handing over the wheel — but keeping
             your car — just makes sense.
-          </p>
+          </Reveal>
         </div>
 
         <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-8 md:auto-rows-[minmax(220px,auto)]">
-          {cards.map((c) => (
-            <article
+          {cards.map((c, i) => (
+            <Reveal
               key={c.n}
-              className={`group relative flex flex-col justify-between overflow-hidden p-8 transition-transform hover:-translate-y-1 lg:p-10 ${c.span} ${toneClass(c.tone)}`}
+              variant="up"
+              delay={i * 120}
+              className={`tile-hover group relative flex flex-col justify-between overflow-hidden p-8 lg:p-10 ${c.span} ${toneClass(c.tone)}`}
             >
               <div className="flex items-start justify-between">
                 <span className="font-display text-xs uppercase tracking-[0.3em] opacity-60">
@@ -438,11 +440,11 @@ function ForWho() {
               </div>
               <span
                 aria-hidden
-                className="absolute -bottom-6 -right-4 font-display text-[8rem] font-extrabold leading-none opacity-[0.06] transition-opacity group-hover:opacity-20"
+                className="absolute -bottom-6 -right-4 font-display text-[8rem] font-extrabold leading-none opacity-[0.06] transition-all duration-700 group-hover:opacity-25 group-hover:-translate-y-2"
               >
                 {c.n}
               </span>
-            </article>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -453,26 +455,27 @@ function ForWho() {
 
 function AppCTA() {
   return (
-    <section id="app" className="border-b border-border bg-taxi text-ink">
-      <div className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-10 px-6 py-24 lg:grid-cols-2 lg:px-10 lg:py-32">
+    <section id="app" className="relative overflow-hidden border-b border-border bg-taxi text-ink">
+      <div className="pointer-events-none absolute inset-0 opacity-[0.07] checker-stripe" />
+      <div className="relative mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-10 px-6 py-24 lg:grid-cols-2 lg:px-10 lg:py-32">
         <div>
-          <div className="text-xs font-medium uppercase tracking-[0.25em] text-ink/70">
+          <Reveal variant="up" className="text-xs font-medium uppercase tracking-[0.25em] text-ink/70">
             — Book only in the app
-          </div>
-          <h2 className="mt-4 font-display text-5xl font-bold leading-[0.9] lg:text-7xl">
+          </Reveal>
+          <Reveal as="h2" variant="up" delay={120} className="mt-4 font-display text-5xl font-bold leading-[0.9] lg:text-7xl">
             Download.
             <br />
             Tap. Drive.
-          </h2>
-          <p className="mt-6 max-w-md text-ink/80">
+          </Reveal>
+          <Reveal as="p" variant="up" delay={260} className="mt-6 max-w-md text-ink/80">
             The website tells the story. The app does the work. Bookings,
             dispatch and driver tracking live entirely in the PILOTED app.
-          </p>
+          </Reveal>
         </div>
-        <div className="flex flex-col gap-4 sm:flex-row lg:justify-end">
+        <Reveal variant="right" delay={200} className="flex flex-col gap-4 sm:flex-row lg:justify-end">
           <StoreButton store="App Store" sub="Download on the" />
           <StoreButton store="Google Play" sub="Get it on" />
-        </div>
+        </Reveal>
       </div>
     </section>
   );
