@@ -181,12 +181,13 @@ function Stat({ n, label }: { n: string; label: string }) {
   return (
     <div>
       <div className="font-display text-3xl font-bold lg:text-4xl">{n}</div>
-      <div className="mt-1 text-[10px] uppercase tracking-widest text-taxi/60">
+      <div className="mt-1 text-[10px] uppercase tracking-widest text-muted-foreground">
         {label}
       </div>
     </div>
   );
 }
+
 
 function Ticker() {
   const words = [
