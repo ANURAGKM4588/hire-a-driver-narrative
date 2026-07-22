@@ -565,14 +565,19 @@ function Packages() {
   );
 }
 
-/* ---------------- NEW: Cities marquee ---------------- */
+/* ---------------- NEW: Moments marquee (single-country focus) ---------------- */
 function Cities() {
-  const cities = [
-    "Dubai", "Abu Dhabi", "Riyadh", "Jeddah", "Doha", "Kuwait City",
-    "Manama", "Muscat", "Amman", "Beirut", "Cairo", "Istanbul",
-    "Casablanca", "Tunis",
+  const moments = [
+    "The school run",
+    "The airport dash",
+    "The wedding day",
+    "The night out",
+    "The board meeting",
+    "The hospital visit",
+    "The long weekend",
+    "The daily commute",
   ];
-  const row = [...cities, ...cities];
+  const row = [...moments, ...moments];
   return (
     <section className="border-b border-border bg-ink text-bone">
       <div className="mx-auto max-w-[1400px] px-6 py-20 lg:px-10 lg:py-24">
@@ -582,15 +587,15 @@ function Cities() {
               — Where we drive
             </Reveal>
             <Reveal as="h2" variant="up" delay={120} className="mt-4 font-display text-4xl font-bold leading-[0.95] lg:text-5xl">
-              14 cities.
+              One country.
               <br />
-              One standard.
+              Every moment.
             </Reveal>
           </div>
           <Reveal as="p" variant="up" delay={200} className="text-bone/60 lg:col-span-6 lg:col-start-6 lg:text-lg">
-            PILOTED operates a live driver network across the Gulf and wider
-            region — with dispatch times under 25 minutes in every city we're
-            in. New cities open every quarter.
+            PILOTED runs a single, tightly-held driver network — one country,
+            one standard, one number to call. Dispatch under 25 minutes,
+            from the first street to the last.
           </Reveal>
         </div>
 
