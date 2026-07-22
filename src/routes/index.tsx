@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Reveal } from "@/components/Reveal";
 import { ScrollCinematic } from "@/components/ScrollCinematic";
 import bannerDriver from "@/assets/banner-driver.jpg";
-import heroDriver from "@/assets/hero-driver.jpg.asset.json";
+import carLine from "@/assets/car-line.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -126,15 +126,18 @@ function Hero() {
 
         {/* Right */}
         <Reveal variant="left" delay={120} className="relative min-h-[420px] overflow-hidden rounded-3xl bg-ink text-taxi lg:min-h-[720px] lg:m-4">
+          {/* Hand-drawn car illustration */}
           <img
-            src={heroDriver.url}
-            alt="Professional chauffeur driving at night"
-            width={1280}
-            height={1600}
-            className="absolute inset-0 h-full w-full object-cover opacity-80"
+            src={carLine}
+            alt="Line drawing of a chauffeur-driven sedan"
+            width={1408}
+            height={1024}
+            className="pointer-events-none absolute left-1/2 top-1/2 w-[115%] max-w-none -translate-x-1/2 -translate-y-[42%] opacity-90 mix-blend-screen"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/10" />
-          <div className="absolute inset-0 opacity-10 checker-stripe mix-blend-overlay" />
+          {/* Soft radial vignette */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(0,0,0,0.55)_100%)]" />
+          <div className="absolute inset-0 opacity-[0.06] checker-stripe mix-blend-overlay" />
+
           <div className="relative flex h-full flex-col justify-between p-8 lg:p-12">
             <div className="flex items-start justify-between">
               <span className="font-display text-xs uppercase tracking-[0.3em] text-taxi/70">
