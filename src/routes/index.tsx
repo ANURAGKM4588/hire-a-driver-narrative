@@ -141,7 +141,7 @@ function Hero() {
             alt="Line drawing of a luxury sedan"
             width={1408}
             height={1024}
-            className="car-hero ml-auto w-full max-w-none scale-125 lg:scale-[1.6] xl:scale-[1.75]"
+            className="car-hero ml-auto w-full max-w-xl lg:max-w-2xl"
           />
           {/* Road line */}
           <div className="road-line pointer-events-none absolute bottom-[18%] left-0 right-0 h-px bg-ink/20" />
