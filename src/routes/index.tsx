@@ -229,16 +229,16 @@ function Hero() {
               />
               {/* Rotating wheels — positioned to match the sedan illustration */}
               {[
-                { left: "26.3%" },
-                { left: "78.8%" },
+                { left: "26.4%" },
+                { left: "79.0%" },
               ].map((pos, i) => (
                 <div
                   key={i}
                   className="absolute"
                   style={{
                     left: pos.left,
-                    top: "70%",
-                    width: "9.2%",
+                    top: "58.5%",
+                    width: "10%",
                     aspectRatio: "1 / 1",
                     transform: `translate(-50%, -50%) rotate(${wheelRotate}deg)`,
                     willChange: "transform",
