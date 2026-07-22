@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Reveal } from "@/components/Reveal";
-import { Scroll3D } from "@/components/Scroll3D";
+import { ScrollCinematic } from "@/components/ScrollCinematic";
 import bannerDriver from "@/assets/banner-driver.jpg";
 import heroDriver from "@/assets/hero-driver.jpg.asset.json";
 
