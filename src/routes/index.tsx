@@ -80,102 +80,78 @@ function Nav() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-border">
-      <div className="mx-auto grid max-w-[1400px] grid-cols-1 lg:grid-cols-2">
-        {/* Left */}
-        <div className="flex flex-col justify-between px-6 pt-16 pb-14 lg:px-10 lg:pt-24 lg:pb-20">
-          <div>
-            <Reveal variant="up" className="mb-8 inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
-              <span className="h-px w-8 bg-ink" />
-              A driver-providing agency
-            </Reveal>
-            <Reveal as="h1" variant="up" delay={80} className="font-display text-[14vw] leading-[0.85] font-extrabold tracking-tighter sm:text-[10vw] lg:text-[8.5vw] xl:text-[7.5rem]">
-              Your car.
-              <br />
-              <span className="italic font-normal text-muted-foreground">Our</span>{" "}
-              <span className="relative inline-block">
-                driver.
-                <span className="absolute -bottom-2 left-0 h-3 w-full rounded-full bg-taxi -z-0" />
-              </span>
-            </Reveal>
-            <Reveal as="p" variant="up" delay={240} className="mt-10 max-w-md text-base leading-relaxed text-muted-foreground">
-              You already own the car you love. We bring the professional who
-              drives it — for the school run, the long night home, the airport
-              dash, the workday behind you.
-            </Reveal>
-          </div>
+    <section className="relative overflow-hidden border-b border-border bg-background">
+      <div className="mx-auto max-w-[1400px] px-6 pt-16 pb-10 lg:px-10 lg:pt-24 lg:pb-16">
+        {/* Eyebrow */}
+        <Reveal variant="up" className="mb-8 flex items-center justify-center gap-3 text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+          <span className="h-px w-8 bg-ink" />
+          A driver-providing agency
+          <span className="h-px w-8 bg-ink" />
+        </Reveal>
 
-          <Reveal variant="up" delay={360} className="mt-12 flex flex-wrap items-center gap-6">
-            <a
-              href="#app"
-              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-ink px-6 py-4 text-sm font-semibold uppercase tracking-widest text-taxi transition-transform hover:-translate-y-0.5"
-            >
-              Book on the app
-              <span className="transition-transform group-hover:translate-x-1" aria-hidden>
-                →
-              </span>
-            </a>
-            <a
-              href="#story"
-              className="text-sm font-medium underline decoration-taxi decoration-4 underline-offset-8 transition-all hover:decoration-ink hover:underline-offset-[10px]"
-            >
-              Read the story
-            </a>
-          </Reveal>
-        </div>
+        {/* Headline */}
+        <Reveal as="h1" variant="up" delay={80} className="text-center font-display text-[16vw] leading-[0.85] font-extrabold tracking-tighter sm:text-[12vw] lg:text-[10vw] xl:text-[9rem]">
+          Your car.
+          <br />
+          <span className="italic font-normal text-muted-foreground">Our</span>{" "}
+          <span className="relative inline-block">
+            driver.
+            <span className="absolute -bottom-2 left-0 h-3 w-full rounded-full bg-taxi -z-0" />
+          </span>
+        </Reveal>
 
-        {/* Right */}
-        <Reveal variant="left" delay={120} className="relative min-h-[420px] overflow-hidden rounded-3xl bg-background text-ink lg:min-h-[720px] lg:m-4">
-          {/* Black car line drawing */}
+        {/* Sub */}
+        <Reveal as="p" variant="up" delay={240} className="mx-auto mt-8 max-w-xl text-center text-base leading-relaxed text-muted-foreground">
+          You already own the car you love. We bring the professional who
+          drives it — for the school run, the long night home, the airport
+          dash, the workday behind you.
+        </Reveal>
+
+        {/* CTAs */}
+        <Reveal variant="up" delay={360} className="mt-10 flex flex-wrap items-center justify-center gap-6">
+          <a
+            href="#app"
+            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-ink px-6 py-4 text-sm font-semibold uppercase tracking-widest text-taxi transition-transform hover:-translate-y-0.5"
+          >
+            Book on the app
+            <span className="transition-transform group-hover:translate-x-1" aria-hidden>→</span>
+          </a>
+          <a
+            href="#story"
+            className="text-sm font-medium underline decoration-taxi decoration-4 underline-offset-8 transition-all hover:decoration-ink hover:underline-offset-[10px]"
+          >
+            Read the story
+          </a>
+        </Reveal>
+
+        {/* Car illustration */}
+        <Reveal variant="up" delay={480} className="relative mt-12 lg:mt-16">
           <img
             src={carBlack.url}
             alt="Line drawing of a luxury sedan"
             width={1408}
             height={1024}
-            className="pointer-events-none absolute left-1/2 top-1/2 w-[110%] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-95"
+            className="mx-auto w-full max-w-5xl"
           />
-          {/* Subtle taxi accent stripe */}
-          <div className="absolute left-0 top-0 h-full w-1 bg-taxi/70" />
-
-          <div className="relative flex h-full flex-col justify-between p-8 lg:p-12">
-            <div className="flex items-start justify-between">
-              <span className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                / 001 — Est. 2025
-              </span>
-              <span className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                Drivers, not rides
-              </span>
-            </div>
-
-            <div className="my-16 lg:my-0">
-              <Reveal as="div" variant="clip" delay={380} className="font-display text-[22vw] font-extrabold leading-none tracking-tighter text-ink sm:text-[16vw] lg:text-[14vw]">
-                24/7
-                <span className="text-taxi">.</span>
-              </Reveal>
-              <Reveal as="p" variant="up" delay={620} className="mt-4 max-w-xs text-sm text-muted-foreground">
-                Vetted, uniformed, licensed drivers — dispatched to your
-                doorstep, ready to take your wheel.
-              </Reveal>
-            </div>
-
-            <div className="grid grid-cols-3 gap-6 border-t border-border pt-8 text-ink">
-              {[
-                { n: "420+", label: "Drivers on call" },
-                { n: "14", label: "Cities live" },
-                { n: "4.9", label: "Avg. rating" },
-              ].map((s, i) => (
-                <Reveal key={s.label} variant="up" delay={720 + i * 120}>
-                  <Stat n={s.n} label={s.label} />
-                </Reveal>
-              ))}
-            </div>
-          </div>
         </Reveal>
 
+        {/* Stats */}
+        <div className="mt-8 grid grid-cols-3 gap-6 border-t border-border pt-8 lg:mt-12">
+          {[
+            { n: "420+", label: "Drivers on call" },
+            { n: "24/7", label: "Dispatch" },
+            { n: "4.9", label: "Avg. rating" },
+          ].map((s, i) => (
+            <Reveal key={s.label} variant="up" delay={600 + i * 120} className="text-center">
+              <Stat n={s.n} label={s.label} />
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
+
 
 function Stat({ n, label }: { n: string; label: string }) {
   return (
