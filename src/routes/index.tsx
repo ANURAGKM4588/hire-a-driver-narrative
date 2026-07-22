@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { ScrollCinematic } from "@/components/ScrollCinematic";
 import bannerDriver from "@/assets/banner-driver.jpg";
-import carBlack from "@/assets/car-hero.png.asset.json";
+import carBlack from "@/assets/car-hero-2.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -113,21 +113,22 @@ function Hero() {
   const clamp = (v: number, a = 0, b = 1) => Math.min(Math.max(v, a), b);
   const seg = (start: number, end: number) => clamp((p - start) / (end - start));
 
-  // Car: drives fully across the screen (0 -> 0.85), then it's gone
-  const carP = seg(0, 0.85);
-  const carX = -120 + carP * 260; // -120% -> +140% (fully exits right)
-  // Natural wheel rotation — proportional to distance travelled
-  const wheelRotate = carP * 1440; // 4 full turns across the trip
-  // Tiny vertical bob for life
+  // Intro black panel occupies 0 -> 0.15 of scroll
+  const introOut = seg(0.08, 0.18); // 0..1 as intro fades away
+  const introOpacity = 1 - introOut;
+
+  // Car: drives across (starts once intro is gone)
+  const carP = seg(0.15, 0.9);
+  const carX = -120 + carP * 260; // -120% -> +140%
+  const wheelRotate = carP * 1440;
   const carBob = Math.sin(carP * Math.PI * 6) * 2;
 
-  // Text reveals — staggered, revealed as/after the car sweeps past them
-  // Ordered so each line appears just after the car clears that area
-  const eyebrowP = seg(0.18, 0.32);
-  const titleP = seg(0.32, 0.5);
-  const subP = seg(0.5, 0.65);
-  const ctaP = seg(0.65, 0.78);
-  const statsP = seg(0.78, 0.9);
+  // Text reveals — staggered, after car sweeps past
+  const eyebrowP = seg(0.28, 0.4);
+  const titleP = seg(0.4, 0.55);
+  const subP = seg(0.55, 0.68);
+  const ctaP = seg(0.68, 0.8);
+  const statsP = seg(0.8, 0.92);
 
   const revealStyle = (v: number) => ({
     opacity: v,
@@ -138,7 +139,7 @@ function Hero() {
     <section
       ref={sectionRef}
       className="relative bg-background"
-      style={{ height: "300vh" }}
+      style={{ height: "340vh" }}
     >
       <div className="sticky top-0 flex h-screen items-center overflow-hidden border-b border-border">
         <div className="relative mx-auto w-full max-w-[1400px] px-6 lg:px-10">
@@ -229,16 +230,16 @@ function Hero() {
               />
               {/* Rotating wheels — positioned to match the sedan illustration */}
               {[
-                { left: "26.4%" },
-                { left: "79.0%" },
+                { left: "27.3%" },
+                { left: "80.3%" },
               ].map((pos, i) => (
                 <div
                   key={i}
                   className="absolute"
                   style={{
                     left: pos.left,
-                    top: "58.5%",
-                    width: "10%",
+                    top: "56.5%",
+                    width: "12.8%",
                     aspectRatio: "1 / 1",
                     transform: `translate(-50%, -50%) rotate(${wheelRotate}deg)`,
                     willChange: "transform",
@@ -275,12 +276,37 @@ function Hero() {
             }}
           />
 
-          {/* Scroll hint */}
-          <div
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground"
-            style={{ opacity: 1 - clamp(p * 3) }}
-          >
-            Scroll ↓
+        </div>
+
+        {/* Intro black panel — question + scroll-down instruction */}
+        <div
+          className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center bg-ink px-6 text-center text-bone"
+          style={{
+            opacity: introOpacity,
+            transform: `translateY(${introOut * -8}%)`,
+            transition: "none",
+          }}
+          aria-hidden={introOpacity < 0.05}
+        >
+          <div className="mb-8 inline-flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.35em] text-taxi">
+            <span className="h-px w-8 bg-taxi" />
+            PILOTED
+            <span className="h-px w-8 bg-taxi" />
+          </div>
+          <h2 className="max-w-4xl font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl lg:text-7xl">
+            Who drives
+            <br />
+            <span className="italic font-normal text-bone/60">your car</span>{" "}
+            <span className="text-taxi">when you can't?</span>
+          </h2>
+          <p className="mt-6 max-w-md text-sm leading-relaxed text-bone/60 lg:text-base">
+            Scroll to meet the answer.
+          </p>
+          <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 text-[10px] uppercase tracking-[0.35em] text-bone/70">
+            <span>Scroll to explore</span>
+            <span className="grid h-10 w-10 animate-bounce place-items-center rounded-full border border-bone/30 text-base">
+              ↓
+            </span>
           </div>
         </div>
       </div>
