@@ -151,7 +151,6 @@ function Hero() {
           className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center px-6 text-center"
           style={{
             opacity: questionOpacity,
-            transform: `translateY(${questionShift}px)`,
           }}
           aria-hidden={questionOpacity < 0.05}
         >
