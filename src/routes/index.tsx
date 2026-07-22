@@ -51,7 +51,7 @@ function Nav() {
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 lg:px-10">
         <a href="#" className="flex items-center gap-2">
-          <span className="grid h-7 w-7 place-items-center bg-ink text-taxi font-display font-bold text-sm">
+          <span className="grid h-7 w-7 place-items-center rounded-md bg-ink text-taxi font-display font-bold text-sm">
             P
           </span>
           <span className="font-display text-lg font-bold tracking-tight">
@@ -67,7 +67,7 @@ function Nav() {
         </nav>
         <a
           href="#app"
-          className="group relative inline-flex items-center gap-2 overflow-hidden bg-ink px-4 py-2 text-xs font-semibold uppercase tracking-widest text-taxi transition-transform hover:-translate-y-0.5"
+          className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-ink px-4 py-2 text-xs font-semibold uppercase tracking-widest text-taxi transition-transform hover:-translate-y-0.5"
         >
           Get the app
           <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
@@ -94,7 +94,7 @@ function Hero() {
               <span className="italic font-normal text-muted-foreground">Our</span>{" "}
               <span className="relative inline-block">
                 driver.
-                <span className="absolute -bottom-2 left-0 h-3 w-full bg-taxi -z-0" />
+                <span className="absolute -bottom-2 left-0 h-3 w-full rounded-full bg-taxi -z-0" />
               </span>
             </Reveal>
             <Reveal as="p" variant="up" delay={240} className="mt-10 max-w-md text-base leading-relaxed text-muted-foreground">
@@ -107,7 +107,7 @@ function Hero() {
           <Reveal variant="up" delay={360} className="mt-12 flex flex-wrap items-center gap-6">
             <a
               href="#app"
-              className="group relative inline-flex items-center gap-3 overflow-hidden bg-ink px-6 py-4 text-sm font-semibold uppercase tracking-widest text-taxi transition-transform hover:-translate-y-0.5"
+              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-ink px-6 py-4 text-sm font-semibold uppercase tracking-widest text-taxi transition-transform hover:-translate-y-0.5"
             >
               Book on the app
               <span className="transition-transform group-hover:translate-x-1" aria-hidden>
@@ -124,7 +124,7 @@ function Hero() {
         </div>
 
         {/* Right */}
-        <Reveal variant="left" delay={120} className="relative min-h-[420px] bg-ink text-taxi lg:min-h-[720px]">
+        <Reveal variant="left" delay={120} className="relative min-h-[420px] overflow-hidden rounded-3xl bg-ink text-taxi lg:min-h-[720px] lg:m-4">
           <div className="absolute inset-0 opacity-20 checker-stripe" />
           <div className="relative flex h-full flex-col justify-between p-8 lg:p-12">
             <div className="flex items-start justify-between">
@@ -218,7 +218,7 @@ function Banner() {
         </div>
 
         <Scroll3D rotate={14} parallax={60} scale={0.05}>
-          <div className="relative aspect-[16/9] w-full overflow-hidden">
+          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl">
             <img
               src={bannerDriver}
               alt="A professional PILOTED chauffeur driving a client's car at night"
@@ -323,7 +323,7 @@ function How() {
               key={s.n}
               variant="up"
               delay={i * 160}
-              className="group flex flex-col justify-between bg-ink p-8 transition-colors hover:bg-bone/[0.04] lg:p-10"
+              className="group flex flex-col justify-between rounded-3xl bg-ink p-8 transition-colors hover:bg-bone/[0.04] lg:p-10"
             >
               <div className="font-display text-6xl font-extrabold text-taxi transition-transform duration-500 group-hover:-translate-y-1 lg:text-7xl">
                 {s.n}
@@ -371,7 +371,7 @@ function Standards() {
                 key={it.t}
                 variant="up"
                 delay={i * 120}
-                className="group bg-background p-8 transition-colors hover:bg-taxi/10"
+                className="group rounded-2xl bg-background p-8 transition-colors hover:bg-taxi/10"
               >
                 <div className="flex items-center gap-3">
                   <span className="h-2 w-2 bg-taxi transition-transform duration-500 group-hover:scale-150" />
@@ -434,7 +434,7 @@ function ForWho() {
               key={c.n}
               variant="up"
               delay={i * 120}
-              className={`tile-hover group relative flex flex-col justify-between overflow-hidden p-8 lg:p-10 ${c.span} ${toneClass(c.tone)}`}
+              className={`tile-hover group relative flex flex-col justify-between overflow-hidden rounded-3xl p-8 lg:p-10 ${c.span} ${toneClass(c.tone)}`}
             >
               <div className="flex items-start justify-between">
                 <span className="font-display text-xs uppercase tracking-[0.3em] opacity-60">
@@ -524,7 +524,7 @@ function Packages() {
               key={p.name}
               variant="up"
               delay={i * 140}
-              className={`tile-hover group relative flex flex-col justify-between overflow-hidden p-8 lg:p-10 ${toneClass(p.tone)}`}
+              className={`tile-hover group relative flex flex-col justify-between overflow-hidden rounded-3xl p-8 lg:p-10 ${toneClass(p.tone)}`}
             >
               <div>
                 <div className="flex items-center justify-between">
@@ -658,7 +658,7 @@ function Testimonials() {
               key={n.who}
               variant="up"
               delay={i * 140}
-              className="tile-hover group flex flex-col justify-between border border-border bg-background p-8 lg:p-10"
+              className="tile-hover group flex flex-col justify-between rounded-3xl border border-border bg-background p-8 lg:p-10"
             >
               <div className="font-display text-5xl text-taxi">“</div>
               <p className="mt-2 font-display text-xl font-semibold leading-snug tracking-tight text-ink lg:text-2xl">
@@ -727,7 +727,7 @@ function FAQ() {
                     </span>
                     <span
                       aria-hidden
-                      className="grid h-8 w-8 shrink-0 place-items-center bg-ink text-taxi transition-transform duration-500 group-open:rotate-45"
+                      className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink text-taxi transition-transform duration-500 group-open:rotate-45"
                     >
                       +
                     </span>
@@ -777,9 +777,9 @@ function StoreButton({ store, sub }: { store: string; sub: string }) {
   return (
     <a
       href="#"
-      className="group flex min-w-[220px] items-center gap-4 bg-ink px-6 py-5 text-taxi transition-transform hover:-translate-y-1"
+      className="group flex min-w-[220px] items-center gap-4 rounded-2xl bg-ink px-6 py-5 text-taxi transition-transform hover:-translate-y-1"
     >
-      <span className="grid h-10 w-10 place-items-center border border-taxi/40 font-display text-lg font-bold">
+      <span className="grid h-10 w-10 place-items-center rounded-full border border-taxi/40 font-display text-lg font-bold">
         ▶
       </span>
       <span className="flex flex-col leading-tight">
@@ -799,7 +799,7 @@ function Footer() {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
           <div className="md:col-span-2">
             <div className="flex items-center gap-2">
-              <span className="grid h-7 w-7 place-items-center bg-ink text-taxi font-display font-bold text-sm">
+              <span className="grid h-7 w-7 place-items-center rounded-md bg-ink text-taxi font-display font-bold text-sm">
                 P
               </span>
               <span className="font-display text-lg font-bold tracking-tight">
