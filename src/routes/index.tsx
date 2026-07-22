@@ -278,9 +278,9 @@ function Hero() {
 
         </div>
 
-        {/* Intro black panel — question + scroll-down instruction */}
+        {/* Intro white panel — question + scroll-down instruction */}
         <div
-          className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center bg-ink px-6 text-center text-bone"
+          className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center bg-background px-6 text-center text-foreground"
           style={{
             opacity: introOpacity,
             transform: `translateY(${introOut * -8}%)`,
@@ -288,23 +288,26 @@ function Hero() {
           }}
           aria-hidden={introOpacity < 0.05}
         >
-          <div className="mb-8 inline-flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.35em] text-taxi">
-            <span className="h-px w-8 bg-taxi" />
+          <div className="mb-8 inline-flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.35em] text-muted-foreground">
+            <span className="h-px w-8 bg-ink" />
             PILOTED
-            <span className="h-px w-8 bg-taxi" />
+            <span className="h-px w-8 bg-ink" />
           </div>
           <h2 className="max-w-4xl font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl lg:text-7xl">
             Who drives
             <br />
-            <span className="italic font-normal text-bone/60">your car</span>{" "}
-            <span className="text-taxi">when you can't?</span>
+            <span className="italic font-normal text-muted-foreground">your car</span>{" "}
+            <span className="relative inline-block">
+              when you can't?
+              <span className="absolute -bottom-1 left-0 h-3 w-full rounded-full bg-taxi -z-10" />
+            </span>
           </h2>
-          <p className="mt-6 max-w-md text-sm leading-relaxed text-bone/60 lg:text-base">
+          <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground lg:text-base">
             Scroll to meet the answer.
           </p>
-          <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 text-[10px] uppercase tracking-[0.35em] text-bone/70">
+          <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
             <span>Scroll to explore</span>
-            <span className="grid h-10 w-10 animate-bounce place-items-center rounded-full border border-bone/30 text-base">
+            <span className="grid h-10 w-10 animate-bounce place-items-center rounded-full border border-ink/30 text-base text-ink">
               ↓
             </span>
           </div>
