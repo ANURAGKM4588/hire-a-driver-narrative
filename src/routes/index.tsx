@@ -80,78 +80,169 @@ function Nav() {
 }
 
 function Hero() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [p, setP] = useState(0); // 0..1 scroll progress through the hero
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight || 1;
+      // progress: 0 when section top hits viewport top, 1 when we've scrolled (height - vh)
+      const total = el.offsetHeight - vh;
+      const scrolled = Math.min(Math.max(-rect.top, 0), total);
+      setP(total > 0 ? scrolled / total : 0);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  // easing helpers
+  const clamp = (v: number, a = 0, b = 1) => Math.min(Math.max(v, a), b);
+  const seg = (start: number, end: number) => clamp((p - start) / (end - start));
+
+  // Car: drives in from far left (0 -> 0.45), then parks/floats
+  const carP = seg(0, 0.45);
+  const carX = -110 + carP * 110; // -110% -> 0%
+  const parked = seg(0.45, 1);
+  const carFloat = Math.sin(parked * Math.PI * 2) * 4;
+
+  // Text reveals — staggered behind the car
+  const eyebrowP = seg(0.15, 0.35);
+  const titleP = seg(0.28, 0.55);
+  const subP = seg(0.5, 0.7);
+  const ctaP = seg(0.65, 0.82);
+  const statsP = seg(0.78, 0.95);
+
+  const revealStyle = (v: number) => ({
+    opacity: v,
+    transform: `translateY(${(1 - v) * 24}px)`,
+  });
+
   return (
-    <section className="relative overflow-hidden border-b border-border bg-background">
-      <div className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-10 px-6 pt-16 pb-10 lg:grid-cols-12 lg:gap-8 lg:px-10 lg:pt-24 lg:pb-16">
-        {/* Left — copy */}
-        <div className="lg:col-span-6">
-          <Reveal variant="up" className="mb-8 inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
-            <span className="h-px w-8 bg-ink" />
-            A driver-providing agency
-          </Reveal>
-
-          <Reveal as="h1" variant="up" delay={80} className="font-display text-[14vw] leading-[0.85] font-extrabold tracking-tighter sm:text-[11vw] lg:text-[8vw] xl:text-[7.5rem]">
-            Your car.
-            <br />
-            <span className="italic font-normal text-muted-foreground">Our</span>{" "}
-            <span className="relative inline-block">
-              driver.
-              <span className="absolute -bottom-2 left-0 h-3 w-full rounded-full bg-taxi -z-0" />
-            </span>
-          </Reveal>
-
-          <Reveal as="p" variant="up" delay={240} className="mt-8 max-w-md text-base leading-relaxed text-muted-foreground">
-            You already own the car you love. We bring the professional who
-            drives it — for the school run, the long night home, the airport
-            dash, the workday behind you.
-          </Reveal>
-
-          <Reveal variant="up" delay={360} className="mt-10 flex flex-wrap items-center gap-6">
-            <a
-              href="#app"
-              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-ink px-6 py-4 text-sm font-semibold uppercase tracking-widest text-taxi transition-transform hover:-translate-y-0.5"
+    <section
+      ref={sectionRef}
+      className="relative bg-background"
+      style={{ height: "260vh" }}
+    >
+      <div className="sticky top-0 flex h-screen items-center overflow-hidden border-b border-border">
+        <div className="relative mx-auto w-full max-w-[1400px] px-6 lg:px-10">
+          {/* Text — sits BEHIND the car */}
+          <div className="relative z-0 mx-auto max-w-3xl text-center">
+            <div
+              style={revealStyle(eyebrowP)}
+              className="mb-6 inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground transition-none"
             >
-              Book on the app
-              <span className="transition-transform group-hover:translate-x-1" aria-hidden>→</span>
-            </a>
-            <a
-              href="#story"
-              className="text-sm font-medium underline decoration-taxi decoration-4 underline-offset-8 transition-all hover:decoration-ink hover:underline-offset-[10px]"
-            >
-              Read the story
-            </a>
-          </Reveal>
+              <span className="h-px w-8 bg-ink" />
+              A driver-providing agency
+              <span className="h-px w-8 bg-ink" />
+            </div>
 
-          <div className="mt-12 grid grid-cols-3 gap-6 border-t border-border pt-8">
-            {[
-              { n: "420+", label: "Drivers on call" },
-              { n: "24/7", label: "Dispatch" },
-              { n: "4.9", label: "Avg. rating" },
-            ].map((s, i) => (
-              <Reveal key={s.label} variant="up" delay={600 + i * 120}>
-                <Stat n={s.n} label={s.label} />
-              </Reveal>
-            ))}
+            <h1
+              style={revealStyle(titleP)}
+              className="font-display text-[14vw] leading-[0.85] font-extrabold tracking-tighter sm:text-[11vw] lg:text-[9vw] xl:text-[9rem]"
+            >
+              Your car.
+              <br />
+              <span className="italic font-normal text-muted-foreground">Our</span>{" "}
+              <span className="relative inline-block">
+                driver.
+                <span
+                  className="absolute -bottom-2 left-0 h-3 rounded-full bg-taxi -z-0"
+                  style={{ width: `${titleP * 100}%` }}
+                />
+              </span>
+            </h1>
+
+            <p
+              style={revealStyle(subP)}
+              className="mx-auto mt-8 max-w-md text-base leading-relaxed text-muted-foreground"
+            >
+              You already own the car you love. We bring the professional who
+              drives it — for the school run, the long night home, the airport
+              dash, the workday behind you.
+            </p>
+
+            <div
+              style={revealStyle(ctaP)}
+              className="mt-10 flex flex-wrap items-center justify-center gap-6"
+            >
+              <a
+                href="#app"
+                className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-ink px-6 py-4 text-sm font-semibold uppercase tracking-widest text-taxi transition-transform hover:-translate-y-0.5"
+              >
+                Book on the app
+                <span className="transition-transform group-hover:translate-x-1" aria-hidden>→</span>
+              </a>
+              <a
+                href="#story"
+                className="text-sm font-medium underline decoration-taxi decoration-4 underline-offset-8"
+              >
+                Read the story
+              </a>
+            </div>
+
+            <div
+              style={revealStyle(statsP)}
+              className="mx-auto mt-12 grid max-w-2xl grid-cols-3 gap-6 border-t border-border pt-8"
+            >
+              {[
+                { n: "420+", label: "Drivers on call" },
+                { n: "24/7", label: "Dispatch" },
+                { n: "4.9", label: "Avg. rating" },
+              ].map((s) => (
+                <Stat key={s.label} n={s.n} label={s.label} />
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Right — car */}
-        <Reveal variant="fade" delay={200} className="relative lg:col-span-6">
+          {/* Car — drives in from left, sits in FRONT of text */}
           <img
             src={carBlack.url}
             alt="Line drawing of a luxury sedan"
             width={1408}
             height={1024}
-            className="car-hero ml-auto w-full max-w-xl lg:max-w-2xl"
+            className="pointer-events-none absolute left-1/2 top-1/2 z-10 w-[95%] max-w-3xl lg:w-[80%]"
+            style={{
+              transform: `translate(calc(-50% + ${carX}%), calc(-50% + ${carFloat}px))`,
+              willChange: "transform",
+            }}
           />
-          {/* Road line */}
-          <div className="road-line pointer-events-none absolute bottom-[18%] left-0 right-0 h-px bg-ink/20" />
-        </Reveal>
 
+          {/* Road line the car "drives" on */}
+          <div
+            className="pointer-events-none absolute left-0 right-0 top-1/2 z-10 h-px bg-ink/20"
+            style={{
+              transform: `translateY(calc(-50% + ${carFloat + 60}px))`,
+              opacity: clamp(carP + 0.2),
+            }}
+          />
+
+          {/* Scroll hint */}
+          <div
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground"
+            style={{ opacity: 1 - clamp(p * 3) }}
+          >
+            Scroll ↓
+          </div>
+        </div>
       </div>
     </section>
   );
 }
+
 
 
 
