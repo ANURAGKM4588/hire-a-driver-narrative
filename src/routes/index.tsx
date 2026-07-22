@@ -327,45 +327,111 @@ function Standards() {
 }
 
 function ForWho() {
-  const rows = [
-    ["01", "Parents", "The school run, without the school run."],
-    ["02", "Executives", "Emails on the backseat of your own car."],
-    ["03", "After-hours", "Had a glass. Home safe. Car home too."],
-    ["04", "Elderly & family", "A trusted driver on the days you shouldn't."],
-    ["05", "Weddings & events", "A day of chauffeured calm — in your own car."],
+  const cards = [
+    {
+      n: "01",
+      tag: "Busy parents",
+      title: "The school run,\nwithout the school run.",
+      note: "Morning drop-offs. Ballet pick-ups. Your car in your driveway by dinner.",
+      span: "md:col-span-4 md:row-span-2",
+      tone: "ink",
+    },
+    {
+      n: "02",
+      tag: "Executives",
+      title: "A moving\noffice.",
+      note: "Take the call. Close the deck. Arrive sharp.",
+      span: "md:col-span-4",
+      tone: "bone",
+    },
+    {
+      n: "03",
+      tag: "After a drink",
+      title: "Home safe.\nCar home too.",
+      note: "No taxi line. No car left behind at the bar.",
+      span: "md:col-span-4",
+      tone: "taxi",
+    },
+    {
+      n: "04",
+      tag: "Family & elders",
+      title: "A trusted driver\nfor the days you shouldn't.",
+      note: "Appointments, groceries, grandkids — driven by someone you'd trust with keys.",
+      span: "md:col-span-5",
+      tone: "bone",
+    },
+    {
+      n: "05",
+      tag: "Weddings & events",
+      title: "A chauffeured\nday — in your own car.",
+      note: "One driver. One day. Your vehicle, treated like a limousine.",
+      span: "md:col-span-3",
+      tone: "ink",
+    },
   ];
-  return (
-    <section id="who" className="border-b border-border">
-      <div className="mx-auto max-w-[1400px] px-6 py-24 lg:px-10 lg:py-32">
-        <div className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
-          — Who we serve
-        </div>
-        <h2 className="mt-4 max-w-3xl font-display text-5xl font-bold leading-[0.95] lg:text-6xl">
-          Anyone with a car and a reason not to drive it.
-        </h2>
 
-        <div className="mt-16 border-t border-border">
-          {rows.map(([n, t, d]) => (
-            <div
-              key={n}
-              className="group grid grid-cols-12 items-center gap-4 border-b border-border py-6 transition-colors hover:bg-taxi/20"
-            >
-              <div className="col-span-2 font-display text-sm text-muted-foreground md:col-span-1">
-                {n}
-              </div>
-              <div className="col-span-10 font-display text-2xl font-semibold tracking-tight md:col-span-3 lg:text-3xl">
-                {t}
-              </div>
-              <div className="col-span-12 text-muted-foreground md:col-span-7 md:col-start-6 md:text-right lg:text-lg">
-                {d}
-              </div>
+  const toneClass = (t: string) =>
+    t === "ink"
+      ? "bg-ink text-bone"
+      : t === "taxi"
+        ? "bg-taxi text-ink"
+        : "bg-background text-ink border border-border";
+
+  return (
+    <section id="who" className="border-b border-border bg-secondary/40">
+      <div className="mx-auto max-w-[1400px] px-6 py-24 lg:px-10 lg:py-32">
+        <div className="grid grid-cols-1 items-end gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            <div className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+              — Who it's for
             </div>
+            <h2 className="mt-4 font-display text-5xl font-bold leading-[0.9] lg:text-7xl">
+              Built for the people
+              <br />
+              who'd rather{" "}
+              <span className="italic font-normal text-muted-foreground">not</span>{" "}
+              be driving
+              <span className="text-taxi-deep">.</span>
+            </h2>
+          </div>
+          <p className="text-muted-foreground lg:col-span-4 lg:text-right">
+            Five kinds of moments where handing over the wheel — but keeping
+            your car — just makes sense.
+          </p>
+        </div>
+
+        <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-8 md:auto-rows-[minmax(220px,auto)]">
+          {cards.map((c) => (
+            <article
+              key={c.n}
+              className={`group relative flex flex-col justify-between overflow-hidden p-8 transition-transform hover:-translate-y-1 lg:p-10 ${c.span} ${toneClass(c.tone)}`}
+            >
+              <div className="flex items-start justify-between">
+                <span className="font-display text-xs uppercase tracking-[0.3em] opacity-60">
+                  {c.tag}
+                </span>
+                <span className="font-display text-xs opacity-40">/ {c.n}</span>
+              </div>
+              <div className="mt-16">
+                <h3 className="whitespace-pre-line font-display text-3xl font-semibold leading-[1.05] tracking-tight lg:text-4xl">
+                  {c.title}
+                </h3>
+                <p className="mt-4 max-w-sm text-sm opacity-70">{c.note}</p>
+              </div>
+              <span
+                aria-hidden
+                className="absolute -bottom-6 -right-4 font-display text-[8rem] font-extrabold leading-none opacity-[0.06] transition-opacity group-hover:opacity-20"
+              >
+                {c.n}
+              </span>
+            </article>
           ))}
         </div>
       </div>
     </section>
   );
 }
+
 
 function AppCTA() {
   return (
