@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Reveal } from "@/components/Reveal";
-import { Scroll3D } from "@/components/Scroll3D";
+import { ScrollCinematic } from "@/components/ScrollCinematic";
 import bannerDriver from "@/assets/banner-driver.jpg";
 import heroDriver from "@/assets/hero-driver.jpg.asset.json";
 
@@ -226,8 +226,8 @@ function Banner() {
           </Reveal>
         </div>
 
-        <Scroll3D rotate={14} parallax={60} scale={0.05}>
-          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl">
+        <ScrollCinematic className="relative aspect-[16/9] w-full overflow-hidden">
+          <div className="relative aspect-[16/9] w-full">
             <img
               src={bannerDriver}
               alt="A professional PILOTED chauffeur driving a client's car at night"
@@ -255,7 +255,7 @@ function Banner() {
               </div>
             </div>
           </div>
-        </Scroll3D>
+        </ScrollCinematic>
       </div>
     </section>
   );
