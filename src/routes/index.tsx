@@ -135,7 +135,7 @@ function Hero() {
         </div>
 
         {/* Right — car */}
-        <Reveal variant="fade" delay={200} className="relative lg:col-span-6 lg:-mr-16 xl:-mr-32">
+        <Reveal variant="fade" delay={200} className="relative lg:col-span-6">
           <img
             src={carBlack.url}
             alt="Line drawing of a luxury sedan"
