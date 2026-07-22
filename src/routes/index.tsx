@@ -146,73 +146,74 @@ function Hero() {
       style={{ height: "340vh" }}
     >
       <div className="sticky top-0 flex h-screen items-center overflow-hidden border-b border-border">
-        <div className="relative mx-auto w-full max-w-[1400px] px-6 lg:px-10">
-          {/* PHASE 1 — Question headline, animates in on mount, scrolls away */}
+        {/* PHASE 1 — Question headline, viewport-centered, scrolls away */}
+        <div
+          className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center px-6 text-center"
+          style={{
+            opacity: questionOpacity,
+            transform: `translateY(${questionShift}px)`,
+          }}
+          aria-hidden={questionOpacity < 0.05}
+        >
           <div
-            className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center px-6 text-center"
+            className="mb-8 inline-flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.35em] text-muted-foreground transition-all duration-700"
             style={{
-              opacity: questionOpacity,
-              transform: `translateY(${questionShift}px)`,
+              opacity: mounted ? 1 : 0,
+              transform: `translateY(${mounted ? 0 : 12}px)`,
+              transitionDelay: "80ms",
             }}
-            aria-hidden={questionOpacity < 0.05}
           >
-            <div
-              className="mb-8 inline-flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.35em] text-muted-foreground transition-all duration-700"
+            <span className="h-px w-8 bg-ink" />
+            PILOTED
+            <span className="h-px w-8 bg-ink" />
+          </div>
+
+          <h2 className="mx-auto max-w-4xl font-display text-5xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-8xl">
+            <span
+              className="block transition-all duration-[900ms] ease-out"
               style={{
                 opacity: mounted ? 1 : 0,
-                transform: `translateY(${mounted ? 0 : 12}px)`,
-                transitionDelay: "80ms",
+                transform: `translateY(${mounted ? 0 : 28}px)`,
+                transitionDelay: "220ms",
               }}
             >
-              <span className="h-px w-8 bg-ink" />
-              PILOTED
-              <span className="h-px w-8 bg-ink" />
-            </div>
+              Who drives
+            </span>
+            <span
+              className="block italic font-normal text-muted-foreground transition-all duration-[900ms] ease-out"
+              style={{
+                opacity: mounted ? 1 : 0,
+                transform: `translateY(${mounted ? 0 : 28}px)`,
+                transitionDelay: "420ms",
+              }}
+            >
+              your car
+            </span>
+            <span
+              className="relative inline-block transition-all duration-[900ms] ease-out"
+              style={{
+                opacity: mounted ? 1 : 0,
+                transform: `translateY(${mounted ? 0 : 28}px)`,
+                transitionDelay: "620ms",
+              }}
+            >
+              when you can't?
+              <span
+                className="absolute -bottom-1 left-0 h-3 rounded-full bg-taxi -z-10 transition-[width] duration-[1200ms] ease-out"
+                style={{ width: mounted ? "100%" : "0%", transitionDelay: "1100ms" }}
+              />
+            </span>
+          </h2>
 
-            <h2 className="max-w-4xl font-display text-5xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-8xl">
-              <span
-                className="block transition-all duration-[900ms] ease-out"
-                style={{
-                  opacity: mounted ? 1 : 0,
-                  transform: `translateY(${mounted ? 0 : 28}px)`,
-                  transitionDelay: "220ms",
-                }}
-              >
-                Who drives
-              </span>
-              <span
-                className="block italic font-normal text-muted-foreground transition-all duration-[900ms] ease-out"
-                style={{
-                  opacity: mounted ? 1 : 0,
-                  transform: `translateY(${mounted ? 0 : 28}px)`,
-                  transitionDelay: "420ms",
-                }}
-              >
-                your car
-              </span>
-              <span
-                className="relative inline-block transition-all duration-[900ms] ease-out"
-                style={{
-                  opacity: mounted ? 1 : 0,
-                  transform: `translateY(${mounted ? 0 : 28}px)`,
-                  transitionDelay: "620ms",
-                }}
-              >
-                when you can't?
-                <span
-                  className="absolute -bottom-1 left-0 h-3 rounded-full bg-taxi -z-10 transition-[width] duration-[1200ms] ease-out"
-                  style={{ width: mounted ? "100%" : "0%", transitionDelay: "1100ms" }}
-                />
-              </span>
-            </h2>
-
-            <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
-              <span>Scroll to explore</span>
-              <span className="grid h-10 w-10 animate-bounce place-items-center rounded-full border border-ink/30 text-base text-ink">
-                ↓
-              </span>
-            </div>
+          <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
+            <span>Scroll to explore</span>
+            <span className="grid h-10 w-10 animate-bounce place-items-center rounded-full border border-ink/30 text-base text-ink">
+              ↓
+            </span>
           </div>
+        </div>
+
+        <div className="relative mx-auto w-full max-w-[1400px] px-6 lg:px-10">
 
           {/* PHASE 3 — Old hero content, reveals BEHIND the car (z-0) */}
           <div className="relative z-0 mx-auto max-w-3xl text-center">
