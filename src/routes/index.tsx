@@ -113,18 +113,21 @@ function Hero() {
   const clamp = (v: number, a = 0, b = 1) => Math.min(Math.max(v, a), b);
   const seg = (start: number, end: number) => clamp((p - start) / (end - start));
 
-  // Car: drives in from far left (0 -> 0.45), then parks/floats
-  const carP = seg(0, 0.45);
-  const carX = -110 + carP * 110; // -110% -> 0%
-  const parked = seg(0.45, 1);
-  const carFloat = Math.sin(parked * Math.PI * 2) * 4;
+  // Car: drives fully across the screen (0 -> 0.85), then it's gone
+  const carP = seg(0, 0.85);
+  const carX = -120 + carP * 260; // -120% -> +140% (fully exits right)
+  // Natural wheel rotation — proportional to distance travelled
+  const wheelRotate = carP * 1440; // 4 full turns across the trip
+  // Tiny vertical bob for life
+  const carBob = Math.sin(carP * Math.PI * 6) * 2;
 
-  // Text reveals — staggered behind the car
-  const eyebrowP = seg(0.15, 0.35);
-  const titleP = seg(0.28, 0.55);
-  const subP = seg(0.5, 0.7);
-  const ctaP = seg(0.65, 0.82);
-  const statsP = seg(0.78, 0.95);
+  // Text reveals — staggered, revealed as/after the car sweeps past them
+  // Ordered so each line appears just after the car clears that area
+  const eyebrowP = seg(0.18, 0.32);
+  const titleP = seg(0.32, 0.5);
+  const subP = seg(0.5, 0.65);
+  const ctaP = seg(0.65, 0.78);
+  const statsP = seg(0.78, 0.9);
 
   const revealStyle = (v: number) => ({
     opacity: v,
@@ -135,11 +138,11 @@ function Hero() {
     <section
       ref={sectionRef}
       className="relative bg-background"
-      style={{ height: "260vh" }}
+      style={{ height: "300vh" }}
     >
       <div className="sticky top-0 flex h-screen items-center overflow-hidden border-b border-border">
         <div className="relative mx-auto w-full max-w-[1400px] px-6 lg:px-10">
-          {/* Text — sits BEHIND the car */}
+          {/* Text — sits BEHIND the car (z-0) */}
           <div className="relative z-0 mx-auto max-w-3xl text-center">
             <div
               style={revealStyle(eyebrowP)}
@@ -208,25 +211,67 @@ function Hero() {
             </div>
           </div>
 
-          {/* Car — drives in from left, sits in FRONT of text */}
-          <img
-            src={carBlack.url}
-            alt="Line drawing of a luxury sedan"
-            width={1408}
-            height={1024}
+          {/* Car lane — sits in FRONT of the text (z-10), drives fully across */}
+          <div
             className="pointer-events-none absolute left-1/2 top-1/2 z-10 w-[95%] max-w-3xl lg:w-[80%]"
             style={{
-              transform: `translate(calc(-50% + ${carX}%), calc(-50% + ${carFloat}px))`,
+              transform: `translate(calc(-50% + ${carX}%), calc(-50% + ${carBob}px))`,
               willChange: "transform",
             }}
-          />
+          >
+            <div className="relative">
+              <img
+                src={carBlack.url}
+                alt="Line drawing of a luxury sedan"
+                width={1408}
+                height={1024}
+                className="block w-full"
+              />
+              {/* Rotating wheels — positioned to match the sedan illustration */}
+              {[
+                { left: "20.5%" },
+                { left: "74.5%" },
+              ].map((pos, i) => (
+                <div
+                  key={i}
+                  className="absolute"
+                  style={{
+                    left: pos.left,
+                    top: "72%",
+                    width: "11.5%",
+                    aspectRatio: "1 / 1",
+                    transform: `translate(-50%, -50%) rotate(${wheelRotate}deg)`,
+                    willChange: "transform",
+                  }}
+                >
+                  <svg viewBox="0 0 100 100" className="h-full w-full">
+                    <circle cx="50" cy="50" r="46" fill="none" stroke="#111" strokeWidth="3" />
+                    <circle cx="50" cy="50" r="14" fill="#111" />
+                    {Array.from({ length: 6 }).map((_, k) => (
+                      <line
+                        key={k}
+                        x1="50"
+                        y1="50"
+                        x2="50"
+                        y2="8"
+                        stroke="#111"
+                        strokeWidth="4"
+                        strokeLinecap="round"
+                        transform={`rotate(${k * 60} 50 50)`}
+                      />
+                    ))}
+                  </svg>
+                </div>
+              ))}
+            </div>
+          </div>
 
-          {/* Road line the car "drives" on */}
+          {/* Road line the car "drives" on — fades once car has left */}
           <div
-            className="pointer-events-none absolute left-0 right-0 top-1/2 z-10 h-px bg-ink/20"
+            className="pointer-events-none absolute left-0 right-0 top-1/2 z-[5] h-px bg-ink/20"
             style={{
-              transform: `translateY(calc(-50% + ${carFloat + 60}px))`,
-              opacity: clamp(carP + 0.2),
+              transform: `translateY(calc(-50% + ${carBob + 60}px))`,
+              opacity: clamp(carP * 2) * (1 - seg(0.85, 1)),
             }}
           />
 
