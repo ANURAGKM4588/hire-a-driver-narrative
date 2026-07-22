@@ -114,20 +114,48 @@ function Hero() {
     };
   }, []);
 
-  // Car drives smoothly from off-screen left to off-screen right across full scroll.
-  const carX = -120 + p * 260; // -120% -> +140%
-  const wheelRotate = p * 1440;
+  const clamp = (v: number, a = 0, b = 1) => Math.min(Math.max(v, a), b);
+  const seg = (start: number, end: number) => clamp((p - start) / (end - start));
+
+  // Phase 1 (0.00 – 0.18): question headline holds, then fades out as scroll begins.
+  const questionOut = seg(0.08, 0.22);
+  const questionOpacity = 1 - questionOut;
+  const questionShift = questionOut * -30;
+
+  // Phase 2 (0.15 – 0.90): car drives across.
+  const carP = seg(0.15, 0.9);
+  const carX = -120 + carP * 260; // -120% -> +140%
+  const wheelRotate = carP * 1440;
+
+  // Phase 3 (0.35 – 0.95): old hero content reveals behind the car, staggered.
+  const eyebrowP = seg(0.32, 0.42);
+  const titleP = seg(0.42, 0.58);
+  const subP = seg(0.58, 0.7);
+  const ctaP = seg(0.7, 0.82);
+  const statsP = seg(0.82, 0.94);
+
+  const revealStyle = (v: number) => ({
+    opacity: v,
+    transform: `translateY(${(1 - v) * 24}px)`,
+  });
 
   return (
     <section
       ref={sectionRef}
       className="relative bg-background"
-      style={{ height: "260vh" }}
+      style={{ height: "340vh" }}
     >
       <div className="sticky top-0 flex h-screen items-center overflow-hidden border-b border-border">
         <div className="relative mx-auto w-full max-w-[1400px] px-6 lg:px-10">
-          {/* Headline — behind the car (z-0), animates in on mount */}
-          <div className="relative z-0 mx-auto max-w-4xl text-center">
+          {/* PHASE 1 — Question headline, animates in on mount, scrolls away */}
+          <div
+            className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center px-6 text-center"
+            style={{
+              opacity: questionOpacity,
+              transform: `translateY(${questionShift}px)`,
+            }}
+            aria-hidden={questionOpacity < 0.05}
+          >
             <div
               className="mb-8 inline-flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.35em] text-muted-foreground transition-all duration-700"
               style={{
@@ -141,7 +169,7 @@ function Hero() {
               <span className="h-px w-8 bg-ink" />
             </div>
 
-            <h1 className="font-display text-5xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-8xl">
+            <h2 className="max-w-4xl font-display text-5xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-8xl">
               <span
                 className="block transition-all duration-[900ms] ease-out"
                 style={{
@@ -176,21 +204,86 @@ function Hero() {
                   style={{ width: mounted ? "100%" : "0%", transitionDelay: "1100ms" }}
                 />
               </span>
+            </h2>
+
+            <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
+              <span>Scroll to explore</span>
+              <span className="grid h-10 w-10 animate-bounce place-items-center rounded-full border border-ink/30 text-base text-ink">
+                ↓
+              </span>
+            </div>
+          </div>
+
+          {/* PHASE 3 — Old hero content, reveals BEHIND the car (z-0) */}
+          <div className="relative z-0 mx-auto max-w-3xl text-center">
+            <div
+              style={revealStyle(eyebrowP)}
+              className="mb-6 inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground"
+            >
+              <span className="h-px w-8 bg-ink" />
+              A driver-providing agency
+              <span className="h-px w-8 bg-ink" />
+            </div>
+
+            <h1
+              style={revealStyle(titleP)}
+              className="font-display text-[14vw] leading-[0.85] font-extrabold tracking-tighter sm:text-[11vw] lg:text-[9vw] xl:text-[9rem]"
+            >
+              Your car.
+              <br />
+              <span className="italic font-normal text-muted-foreground">Our</span>{" "}
+              <span className="relative inline-block">
+                driver.
+                <span
+                  className="absolute -bottom-2 left-0 h-3 rounded-full bg-taxi -z-0"
+                  style={{ width: `${titleP * 100}%` }}
+                />
+              </span>
             </h1>
 
             <p
-              className="mx-auto mt-8 max-w-md text-base leading-relaxed text-muted-foreground transition-all duration-700"
-              style={{
-                opacity: mounted ? 1 : 0,
-                transform: `translateY(${mounted ? 0 : 16}px)`,
-                transitionDelay: "1200ms",
-              }}
+              style={revealStyle(subP)}
+              className="mx-auto mt-8 max-w-md text-base leading-relaxed text-muted-foreground"
             >
-              You keep your car. We bring the professional who drives it.
+              You already own the car you love. We bring the professional who
+              drives it — for the school run, the long night home, the airport
+              dash, the workday behind you.
             </p>
+
+            <div
+              style={revealStyle(ctaP)}
+              className="mt-10 flex flex-wrap items-center justify-center gap-6"
+            >
+              <a
+                href="#app"
+                className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-ink px-6 py-4 text-sm font-semibold uppercase tracking-widest text-taxi transition-transform hover:-translate-y-0.5"
+              >
+                Book on the app
+                <span className="transition-transform group-hover:translate-x-1" aria-hidden>→</span>
+              </a>
+              <a
+                href="#story"
+                className="text-sm font-medium underline decoration-taxi decoration-4 underline-offset-8"
+              >
+                Read the story
+              </a>
+            </div>
+
+            <div
+              style={revealStyle(statsP)}
+              className="mx-auto mt-12 grid max-w-2xl grid-cols-3 gap-6 border-t border-border pt-8"
+            >
+              {[
+                { n: "420+", label: "Drivers on call" },
+                { n: "24/7", label: "Dispatch" },
+                { n: "4.9", label: "Avg. rating" },
+              ].map((s) => (
+                <Stat key={s.label} n={s.n} label={s.label} />
+              ))}
+            </div>
           </div>
 
-          {/* Car lane — in front of text (z-10), moves smoothly with scroll */}
+          {/* PHASE 2 — Car lane, IN FRONT of the reveal content (z-10) */}
           <div
             className="pointer-events-none absolute left-1/2 top-1/2 z-10 w-[95%] max-w-3xl lg:w-[80%]"
             style={{
@@ -242,17 +335,6 @@ function Hero() {
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Scroll cue */}
-          <div
-            className="pointer-events-none absolute bottom-10 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-3 text-[10px] uppercase tracking-[0.35em] text-muted-foreground transition-opacity duration-500"
-            style={{ opacity: (1 - Math.min(p * 4, 1)) * (mounted ? 1 : 0) }}
-          >
-            <span>Scroll to explore</span>
-            <span className="grid h-10 w-10 animate-bounce place-items-center rounded-full border border-ink/30 text-base text-ink">
-              ↓
-            </span>
           </div>
         </div>
       </div>
