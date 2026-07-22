@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { ScrollCinematic } from "@/components/ScrollCinematic";
 import bannerDriver from "@/assets/banner-driver.jpg";
-import carBlack from "@/assets/car-hero-2.png.asset.json";
+import carBlack from "@/assets/car-hero-3.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
