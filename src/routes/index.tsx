@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Reveal } from "@/components/Reveal";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -51,17 +52,17 @@ function Nav() {
           </span>
         </a>
         <nav className="hidden gap-8 text-sm text-muted-foreground md:flex">
-          <a href="#story" className="hover:text-foreground transition-colors">Story</a>
-          <a href="#how" className="hover:text-foreground transition-colors">How it works</a>
-          <a href="#standards" className="hover:text-foreground transition-colors">Standards</a>
-          <a href="#who" className="hover:text-foreground transition-colors">Who we serve</a>
+          <a href="#story" className="link-underline hover:text-foreground transition-colors">Story</a>
+          <a href="#how" className="link-underline hover:text-foreground transition-colors">How it works</a>
+          <a href="#standards" className="link-underline hover:text-foreground transition-colors">Standards</a>
+          <a href="#who" className="link-underline hover:text-foreground transition-colors">Who we serve</a>
         </nav>
         <a
           href="#app"
-          className="inline-flex items-center gap-2 bg-ink px-4 py-2 text-xs font-semibold uppercase tracking-widest text-taxi transition-transform hover:-translate-y-0.5"
+          className="group relative inline-flex items-center gap-2 overflow-hidden bg-ink px-4 py-2 text-xs font-semibold uppercase tracking-widest text-taxi transition-transform hover:-translate-y-0.5"
         >
           Get the app
-          <span aria-hidden>→</span>
+          <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
         </a>
       </div>
     </header>
@@ -75,11 +76,11 @@ function Hero() {
         {/* Left */}
         <div className="flex flex-col justify-between px-6 pt-16 pb-14 lg:px-10 lg:pt-24 lg:pb-20">
           <div>
-            <div className="mb-8 inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+            <Reveal variant="up" className="mb-8 inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
               <span className="h-px w-8 bg-ink" />
               A driver-providing agency
-            </div>
-            <h1 className="font-display text-[14vw] leading-[0.85] font-extrabold tracking-tighter sm:text-[10vw] lg:text-[8.5vw] xl:text-[7.5rem]">
+            </Reveal>
+            <Reveal as="h1" variant="up" delay={80} className="font-display text-[14vw] leading-[0.85] font-extrabold tracking-tighter sm:text-[10vw] lg:text-[8.5vw] xl:text-[7.5rem]">
               Your car.
               <br />
               <span className="italic font-normal text-muted-foreground">Our</span>{" "}
@@ -87,18 +88,18 @@ function Hero() {
                 driver.
                 <span className="absolute -bottom-2 left-0 h-3 w-full bg-taxi -z-0" />
               </span>
-            </h1>
-            <p className="mt-10 max-w-md text-base leading-relaxed text-muted-foreground">
+            </Reveal>
+            <Reveal as="p" variant="up" delay={240} className="mt-10 max-w-md text-base leading-relaxed text-muted-foreground">
               You already own the car you love. We bring the professional who
               drives it — for the school run, the long night home, the airport
               dash, the workday behind you.
-            </p>
+            </Reveal>
           </div>
 
-          <div className="mt-12 flex flex-wrap items-center gap-6">
+          <Reveal variant="up" delay={360} className="mt-12 flex flex-wrap items-center gap-6">
             <a
               href="#app"
-              className="group inline-flex items-center gap-3 bg-ink px-6 py-4 text-sm font-semibold uppercase tracking-widest text-taxi"
+              className="group relative inline-flex items-center gap-3 overflow-hidden bg-ink px-6 py-4 text-sm font-semibold uppercase tracking-widest text-taxi transition-transform hover:-translate-y-0.5"
             >
               Book on the app
               <span className="transition-transform group-hover:translate-x-1" aria-hidden>
@@ -107,15 +108,15 @@ function Hero() {
             </a>
             <a
               href="#story"
-              className="text-sm font-medium underline decoration-taxi decoration-4 underline-offset-8 hover:decoration-ink"
+              className="text-sm font-medium underline decoration-taxi decoration-4 underline-offset-8 transition-all hover:decoration-ink hover:underline-offset-[10px]"
             >
               Read the story
             </a>
-          </div>
+          </Reveal>
         </div>
 
         {/* Right */}
-        <div className="relative min-h-[420px] bg-ink text-taxi lg:min-h-[720px]">
+        <Reveal variant="left" delay={120} className="relative min-h-[420px] bg-ink text-taxi lg:min-h-[720px]">
           <div className="absolute inset-0 opacity-20 checker-stripe" />
           <div className="relative flex h-full flex-col justify-between p-8 lg:p-12">
             <div className="flex items-start justify-between">
@@ -128,22 +129,28 @@ function Hero() {
             </div>
 
             <div className="my-16 lg:my-0">
-              <div className="font-display text-[22vw] font-extrabold leading-none tracking-tighter sm:text-[16vw] lg:text-[14vw]">
+              <Reveal as="div" variant="clip" delay={380} className="font-display text-[22vw] font-extrabold leading-none tracking-tighter sm:text-[16vw] lg:text-[14vw]">
                 24/7
-              </div>
-              <p className="mt-4 max-w-xs text-sm text-taxi/70">
+              </Reveal>
+              <Reveal as="p" variant="up" delay={620} className="mt-4 max-w-xs text-sm text-taxi/70">
                 Vetted, uniformed, licensed drivers — dispatched to your
                 doorstep, ready to take your wheel.
-              </p>
+              </Reveal>
             </div>
 
             <div className="grid grid-cols-3 gap-6 border-t border-taxi/20 pt-8 text-taxi">
-              <Stat n="420+" label="Drivers on call" />
-              <Stat n="14" label="Cities live" />
-              <Stat n="4.9" label="Avg. rating" />
+              {[
+                { n: "420+", label: "Drivers on call" },
+                { n: "14", label: "Cities live" },
+                { n: "4.9", label: "Avg. rating" },
+              ].map((s, i) => (
+                <Reveal key={s.label} variant="up" delay={720 + i * 120}>
+                  <Stat n={s.n} label={s.label} />
+                </Reveal>
+              ))}
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -194,33 +201,33 @@ function Manifesto() {
       <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-16 px-6 py-24 lg:grid-cols-12 lg:px-10 lg:py-32">
         <div className="lg:col-span-4">
           <div className="sticky top-32">
-            <div className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+            <Reveal variant="up" className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
               — The Story
-            </div>
-            <h2 className="mt-4 font-display text-4xl font-bold leading-[0.95] lg:text-5xl">
+            </Reveal>
+            <Reveal as="h2" variant="up" delay={120} className="mt-4 font-display text-4xl font-bold leading-[0.95] lg:text-5xl">
               We don't rent
               <br />
               cars.
               <br />
               <span className="text-taxi-deep">We lend hands.</span>
-            </h2>
+            </Reveal>
           </div>
         </div>
         <div className="space-y-8 text-lg leading-relaxed text-foreground/90 lg:col-span-7 lg:col-start-6 lg:text-xl">
-          <p>
+          <Reveal as="p" variant="up">
             Every other service asks you to give something up — your car, your
             route, your control. PILOTED starts from the opposite idea. You
             already have a car you love. What you don't always have is the time,
             the energy, or the licence to drive it.
-          </p>
-          <p>
+          </Reveal>
+          <Reveal as="p" variant="up" delay={140}>
             So we built an agency of drivers. Not a fleet. Not a rideshare. Just
             people. Vetted, uniformed, insured, and dispatched to your door in
             minutes.
-          </p>
-          <p className="font-display text-2xl font-semibold tracking-tight text-ink lg:text-3xl">
+          </Reveal>
+          <Reveal as="p" variant="up" delay={280} className="font-display text-2xl font-semibold tracking-tight text-ink lg:text-3xl">
             You keep the wheel. We bring the hands.
-          </p>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -250,25 +257,30 @@ function How() {
       <div className="mx-auto max-w-[1400px] px-6 py-24 lg:px-10 lg:py-32">
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <div>
-            <div className="text-xs font-medium uppercase tracking-[0.25em] text-taxi">
+            <Reveal variant="up" className="text-xs font-medium uppercase tracking-[0.25em] text-taxi">
               — How it works
-            </div>
-            <h2 className="mt-4 font-display text-5xl font-bold leading-[0.95] lg:text-6xl">
+            </Reveal>
+            <Reveal as="h2" variant="up" delay={120} className="mt-4 font-display text-5xl font-bold leading-[0.95] lg:text-6xl">
               Three taps.
               <br />
               One driver.
-            </h2>
+            </Reveal>
           </div>
-          <p className="max-w-sm text-bone/60">
+          <Reveal as="p" variant="up" delay={240} className="max-w-sm text-bone/60">
             Bookings happen in the PILOTED app. This site is here to tell you
             who we are before you download it.
-          </p>
+          </Reveal>
         </div>
 
         <div className="mt-16 grid grid-cols-1 gap-px bg-bone/10 md:grid-cols-3">
-          {steps.map((s) => (
-            <div key={s.n} className="flex flex-col justify-between bg-ink p-8 lg:p-10">
-              <div className="font-display text-6xl font-extrabold text-taxi lg:text-7xl">
+          {steps.map((s, i) => (
+            <Reveal
+              key={s.n}
+              variant="up"
+              delay={i * 160}
+              className="group flex flex-col justify-between bg-ink p-8 transition-colors hover:bg-bone/[0.04] lg:p-10"
+            >
+              <div className="font-display text-6xl font-extrabold text-taxi transition-transform duration-500 group-hover:-translate-y-1 lg:text-7xl">
                 {s.n}
               </div>
               <div className="mt-16">
@@ -276,8 +288,9 @@ function How() {
                   {s.t}
                 </h3>
                 <p className="mt-3 text-bone/60">{s.d}</p>
+                <div className="mt-6 h-px w-0 bg-taxi transition-all duration-700 group-hover:w-full" />
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -297,27 +310,32 @@ function Standards() {
       <div className="mx-auto max-w-[1400px] px-6 py-24 lg:px-10 lg:py-32">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <div className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+            <Reveal variant="up" className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
               — The Standard
-            </div>
-            <h2 className="mt-4 font-display text-5xl font-bold leading-[0.95] lg:text-6xl">
+            </Reveal>
+            <Reveal as="h2" variant="up" delay={120} className="mt-4 font-display text-5xl font-bold leading-[0.95] lg:text-6xl">
               A driver you'd
               <br />
               hand your keys to
               <span className="text-taxi-deep">.</span>
-            </h2>
+            </Reveal>
           </div>
           <div className="grid grid-cols-1 gap-px bg-border sm:grid-cols-2 lg:col-span-7">
-            {items.map((it) => (
-              <div key={it.t} className="bg-background p-8">
+            {items.map((it, i) => (
+              <Reveal
+                key={it.t}
+                variant="up"
+                delay={i * 120}
+                className="group bg-background p-8 transition-colors hover:bg-taxi/10"
+              >
                 <div className="flex items-center gap-3">
-                  <span className="h-2 w-2 bg-taxi" />
+                  <span className="h-2 w-2 bg-taxi transition-transform duration-500 group-hover:scale-150" />
                   <h3 className="font-display text-xl font-semibold">{it.t}</h3>
                 </div>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   {it.d}
                 </p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -382,29 +400,31 @@ function ForWho() {
       <div className="mx-auto max-w-[1400px] px-6 py-24 lg:px-10 lg:py-32">
         <div className="grid grid-cols-1 items-end gap-10 lg:grid-cols-12">
           <div className="lg:col-span-8">
-            <div className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+            <Reveal variant="up" className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
               — Who it's for
-            </div>
-            <h2 className="mt-4 font-display text-5xl font-bold leading-[0.9] lg:text-7xl">
+            </Reveal>
+            <Reveal as="h2" variant="up" delay={120} className="mt-4 font-display text-5xl font-bold leading-[0.9] lg:text-7xl">
               Built for the people
               <br />
               who'd rather{" "}
               <span className="italic font-normal text-muted-foreground">not</span>{" "}
               be driving
               <span className="text-taxi-deep">.</span>
-            </h2>
+            </Reveal>
           </div>
-          <p className="text-muted-foreground lg:col-span-4 lg:text-right">
+          <Reveal as="p" variant="up" delay={240} className="text-muted-foreground lg:col-span-4 lg:text-right">
             Five kinds of moments where handing over the wheel — but keeping
             your car — just makes sense.
-          </p>
+          </Reveal>
         </div>
 
         <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-8 md:auto-rows-[minmax(220px,auto)]">
-          {cards.map((c) => (
-            <article
+          {cards.map((c, i) => (
+            <Reveal
               key={c.n}
-              className={`group relative flex flex-col justify-between overflow-hidden p-8 transition-transform hover:-translate-y-1 lg:p-10 ${c.span} ${toneClass(c.tone)}`}
+              variant="up"
+              delay={i * 120}
+              className={`tile-hover group relative flex flex-col justify-between overflow-hidden p-8 lg:p-10 ${c.span} ${toneClass(c.tone)}`}
             >
               <div className="flex items-start justify-between">
                 <span className="font-display text-xs uppercase tracking-[0.3em] opacity-60">
@@ -420,11 +440,11 @@ function ForWho() {
               </div>
               <span
                 aria-hidden
-                className="absolute -bottom-6 -right-4 font-display text-[8rem] font-extrabold leading-none opacity-[0.06] transition-opacity group-hover:opacity-20"
+                className="absolute -bottom-6 -right-4 font-display text-[8rem] font-extrabold leading-none opacity-[0.06] transition-all duration-700 group-hover:opacity-25 group-hover:-translate-y-2"
               >
                 {c.n}
               </span>
-            </article>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -435,26 +455,27 @@ function ForWho() {
 
 function AppCTA() {
   return (
-    <section id="app" className="border-b border-border bg-taxi text-ink">
-      <div className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-10 px-6 py-24 lg:grid-cols-2 lg:px-10 lg:py-32">
+    <section id="app" className="relative overflow-hidden border-b border-border bg-taxi text-ink">
+      <div className="pointer-events-none absolute inset-0 opacity-[0.07] checker-stripe" />
+      <div className="relative mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-10 px-6 py-24 lg:grid-cols-2 lg:px-10 lg:py-32">
         <div>
-          <div className="text-xs font-medium uppercase tracking-[0.25em] text-ink/70">
+          <Reveal variant="up" className="text-xs font-medium uppercase tracking-[0.25em] text-ink/70">
             — Book only in the app
-          </div>
-          <h2 className="mt-4 font-display text-5xl font-bold leading-[0.9] lg:text-7xl">
+          </Reveal>
+          <Reveal as="h2" variant="up" delay={120} className="mt-4 font-display text-5xl font-bold leading-[0.9] lg:text-7xl">
             Download.
             <br />
             Tap. Drive.
-          </h2>
-          <p className="mt-6 max-w-md text-ink/80">
+          </Reveal>
+          <Reveal as="p" variant="up" delay={260} className="mt-6 max-w-md text-ink/80">
             The website tells the story. The app does the work. Bookings,
             dispatch and driver tracking live entirely in the PILOTED app.
-          </p>
+          </Reveal>
         </div>
-        <div className="flex flex-col gap-4 sm:flex-row lg:justify-end">
+        <Reveal variant="right" delay={200} className="flex flex-col gap-4 sm:flex-row lg:justify-end">
           <StoreButton store="App Store" sub="Download on the" />
           <StoreButton store="Google Play" sub="Get it on" />
-        </div>
+        </Reveal>
       </div>
     </section>
   );
