@@ -76,11 +76,11 @@ function Hero() {
         {/* Left */}
         <div className="flex flex-col justify-between px-6 pt-16 pb-14 lg:px-10 lg:pt-24 lg:pb-20">
           <div>
-            <div className="mb-8 inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+            <Reveal variant="up" className="mb-8 inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
               <span className="h-px w-8 bg-ink" />
               A driver-providing agency
-            </div>
-            <h1 className="font-display text-[14vw] leading-[0.85] font-extrabold tracking-tighter sm:text-[10vw] lg:text-[8.5vw] xl:text-[7.5rem]">
+            </Reveal>
+            <Reveal as="h1" variant="up" delay={80} className="font-display text-[14vw] leading-[0.85] font-extrabold tracking-tighter sm:text-[10vw] lg:text-[8.5vw] xl:text-[7.5rem]">
               Your car.
               <br />
               <span className="italic font-normal text-muted-foreground">Our</span>{" "}
@@ -88,18 +88,18 @@ function Hero() {
                 driver.
                 <span className="absolute -bottom-2 left-0 h-3 w-full bg-taxi -z-0" />
               </span>
-            </h1>
-            <p className="mt-10 max-w-md text-base leading-relaxed text-muted-foreground">
+            </Reveal>
+            <Reveal as="p" variant="up" delay={240} className="mt-10 max-w-md text-base leading-relaxed text-muted-foreground">
               You already own the car you love. We bring the professional who
               drives it — for the school run, the long night home, the airport
               dash, the workday behind you.
-            </p>
+            </Reveal>
           </div>
 
-          <div className="mt-12 flex flex-wrap items-center gap-6">
+          <Reveal variant="up" delay={360} className="mt-12 flex flex-wrap items-center gap-6">
             <a
               href="#app"
-              className="group inline-flex items-center gap-3 bg-ink px-6 py-4 text-sm font-semibold uppercase tracking-widest text-taxi"
+              className="group relative inline-flex items-center gap-3 overflow-hidden bg-ink px-6 py-4 text-sm font-semibold uppercase tracking-widest text-taxi transition-transform hover:-translate-y-0.5"
             >
               Book on the app
               <span className="transition-transform group-hover:translate-x-1" aria-hidden>
@@ -108,15 +108,15 @@ function Hero() {
             </a>
             <a
               href="#story"
-              className="text-sm font-medium underline decoration-taxi decoration-4 underline-offset-8 hover:decoration-ink"
+              className="text-sm font-medium underline decoration-taxi decoration-4 underline-offset-8 transition-all hover:decoration-ink hover:underline-offset-[10px]"
             >
               Read the story
             </a>
-          </div>
+          </Reveal>
         </div>
 
         {/* Right */}
-        <div className="relative min-h-[420px] bg-ink text-taxi lg:min-h-[720px]">
+        <Reveal variant="left" delay={120} className="relative min-h-[420px] bg-ink text-taxi lg:min-h-[720px]">
           <div className="absolute inset-0 opacity-20 checker-stripe" />
           <div className="relative flex h-full flex-col justify-between p-8 lg:p-12">
             <div className="flex items-start justify-between">
@@ -129,22 +129,28 @@ function Hero() {
             </div>
 
             <div className="my-16 lg:my-0">
-              <div className="font-display text-[22vw] font-extrabold leading-none tracking-tighter sm:text-[16vw] lg:text-[14vw]">
+              <Reveal as="div" variant="clip" delay={380} className="font-display text-[22vw] font-extrabold leading-none tracking-tighter sm:text-[16vw] lg:text-[14vw]">
                 24/7
-              </div>
-              <p className="mt-4 max-w-xs text-sm text-taxi/70">
+              </Reveal>
+              <Reveal as="p" variant="up" delay={620} className="mt-4 max-w-xs text-sm text-taxi/70">
                 Vetted, uniformed, licensed drivers — dispatched to your
                 doorstep, ready to take your wheel.
-              </p>
+              </Reveal>
             </div>
 
             <div className="grid grid-cols-3 gap-6 border-t border-taxi/20 pt-8 text-taxi">
-              <Stat n="420+" label="Drivers on call" />
-              <Stat n="14" label="Cities live" />
-              <Stat n="4.9" label="Avg. rating" />
+              {[
+                { n: "420+", label: "Drivers on call" },
+                { n: "14", label: "Cities live" },
+                { n: "4.9", label: "Avg. rating" },
+              ].map((s, i) => (
+                <Reveal key={s.label} variant="up" delay={720 + i * 120}>
+                  <Stat n={s.n} label={s.label} />
+                </Reveal>
+              ))}
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
