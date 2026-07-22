@@ -310,27 +310,32 @@ function Standards() {
       <div className="mx-auto max-w-[1400px] px-6 py-24 lg:px-10 lg:py-32">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <div className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+            <Reveal variant="up" className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
               — The Standard
-            </div>
-            <h2 className="mt-4 font-display text-5xl font-bold leading-[0.95] lg:text-6xl">
+            </Reveal>
+            <Reveal as="h2" variant="up" delay={120} className="mt-4 font-display text-5xl font-bold leading-[0.95] lg:text-6xl">
               A driver you'd
               <br />
               hand your keys to
               <span className="text-taxi-deep">.</span>
-            </h2>
+            </Reveal>
           </div>
           <div className="grid grid-cols-1 gap-px bg-border sm:grid-cols-2 lg:col-span-7">
-            {items.map((it) => (
-              <div key={it.t} className="bg-background p-8">
+            {items.map((it, i) => (
+              <Reveal
+                key={it.t}
+                variant="up"
+                delay={i * 120}
+                className="group bg-background p-8 transition-colors hover:bg-taxi/10"
+              >
                 <div className="flex items-center gap-3">
-                  <span className="h-2 w-2 bg-taxi" />
+                  <span className="h-2 w-2 bg-taxi transition-transform duration-500 group-hover:scale-150" />
                   <h3 className="font-display text-xl font-semibold">{it.t}</h3>
                 </div>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   {it.d}
                 </p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
