@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Reveal } from "@/components/Reveal";
 import { Scroll3D } from "@/components/Scroll3D";
 import bannerDriver from "@/assets/banner-driver.jpg";
+import heroDriver from "@/assets/hero-driver.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -125,7 +126,15 @@ function Hero() {
 
         {/* Right */}
         <Reveal variant="left" delay={120} className="relative min-h-[420px] overflow-hidden rounded-3xl bg-ink text-taxi lg:min-h-[720px] lg:m-4">
-          <div className="absolute inset-0 opacity-20 checker-stripe" />
+          <img
+            src={heroDriver.url}
+            alt="Professional chauffeur driving at night"
+            width={1280}
+            height={1600}
+            className="absolute inset-0 h-full w-full object-cover opacity-80"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/10" />
+          <div className="absolute inset-0 opacity-10 checker-stripe mix-blend-overlay" />
           <div className="relative flex h-full flex-col justify-between p-8 lg:p-12">
             <div className="flex items-start justify-between">
               <span className="font-display text-xs uppercase tracking-[0.3em] text-taxi/70">
@@ -137,10 +146,10 @@ function Hero() {
             </div>
 
             <div className="my-16 lg:my-0">
-              <Reveal as="div" variant="clip" delay={380} className="font-display text-[22vw] font-extrabold leading-none tracking-tighter sm:text-[16vw] lg:text-[14vw]">
+              <Reveal as="div" variant="clip" delay={380} className="font-display text-[22vw] font-extrabold leading-none tracking-tighter drop-shadow-[0_6px_30px_rgba(0,0,0,0.5)] sm:text-[16vw] lg:text-[14vw]">
                 24/7
               </Reveal>
-              <Reveal as="p" variant="up" delay={620} className="mt-4 max-w-xs text-sm text-taxi/70">
+              <Reveal as="p" variant="up" delay={620} className="mt-4 max-w-xs text-sm text-taxi/80">
                 Vetted, uniformed, licensed drivers — dispatched to your
                 doorstep, ready to take your wheel.
               </Reveal>
