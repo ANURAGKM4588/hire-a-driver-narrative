@@ -201,33 +201,33 @@ function Manifesto() {
       <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-16 px-6 py-24 lg:grid-cols-12 lg:px-10 lg:py-32">
         <div className="lg:col-span-4">
           <div className="sticky top-32">
-            <div className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+            <Reveal variant="up" className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
               — The Story
-            </div>
-            <h2 className="mt-4 font-display text-4xl font-bold leading-[0.95] lg:text-5xl">
+            </Reveal>
+            <Reveal as="h2" variant="up" delay={120} className="mt-4 font-display text-4xl font-bold leading-[0.95] lg:text-5xl">
               We don't rent
               <br />
               cars.
               <br />
               <span className="text-taxi-deep">We lend hands.</span>
-            </h2>
+            </Reveal>
           </div>
         </div>
         <div className="space-y-8 text-lg leading-relaxed text-foreground/90 lg:col-span-7 lg:col-start-6 lg:text-xl">
-          <p>
+          <Reveal as="p" variant="up">
             Every other service asks you to give something up — your car, your
             route, your control. PILOTED starts from the opposite idea. You
             already have a car you love. What you don't always have is the time,
             the energy, or the licence to drive it.
-          </p>
-          <p>
+          </Reveal>
+          <Reveal as="p" variant="up" delay={140}>
             So we built an agency of drivers. Not a fleet. Not a rideshare. Just
             people. Vetted, uniformed, insured, and dispatched to your door in
             minutes.
-          </p>
-          <p className="font-display text-2xl font-semibold tracking-tight text-ink lg:text-3xl">
+          </Reveal>
+          <Reveal as="p" variant="up" delay={280} className="font-display text-2xl font-semibold tracking-tight text-ink lg:text-3xl">
             You keep the wheel. We bring the hands.
-          </p>
+          </Reveal>
         </div>
       </div>
     </section>
