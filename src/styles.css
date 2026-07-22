@@ -102,6 +102,40 @@
   to { transform: translateX(-50%); }
 }
 
+/* ---------- Hero car ---------- */
+@keyframes car-drive-in {
+  0%   { opacity: 0; transform: translateX(60%) scale(var(--car-scale, 1.25)); }
+  100% { opacity: 1; transform: translateX(0)   scale(var(--car-scale, 1.25)); }
+}
+@keyframes car-float {
+  0%, 100% { transform: translateY(0) scale(var(--car-scale, 1.25)); }
+  50%      { transform: translateY(-6px) scale(var(--car-scale, 1.25)); }
+}
+@keyframes road-sweep {
+  0%   { transform: scaleX(0); transform-origin: left; }
+  60%  { transform: scaleX(1); transform-origin: left; }
+  61%  { transform-origin: right; }
+  100% { transform: scaleX(1); transform-origin: right; }
+}
+
+.car-hero {
+  --car-scale: 1.25;
+  animation:
+    car-drive-in 1.6s cubic-bezier(0.22, 1, 0.36, 1) both,
+    car-float 6s ease-in-out 1.6s infinite;
+}
+@media (min-width: 1024px) { .car-hero { --car-scale: 1.6; } }
+@media (min-width: 1280px) { .car-hero { --car-scale: 1.75; } }
+
+.road-line {
+  animation: road-sweep 2.2s cubic-bezier(0.77, 0, 0.175, 1) 0.4s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .car-hero, .road-line { animation: none !important; }
+}
+
+
 /* ---------- Reveal-on-scroll ---------- */
 [data-reveal] {
   opacity: 0;
