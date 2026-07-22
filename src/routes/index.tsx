@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { ScrollCinematic } from "@/components/ScrollCinematic";
 import bannerDriver from "@/assets/banner-driver.jpg";
-import carBlack from "@/assets/car-hero.png.asset.json";
+import carBlack from "@/assets/car-hero-2.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -113,21 +113,22 @@ function Hero() {
   const clamp = (v: number, a = 0, b = 1) => Math.min(Math.max(v, a), b);
   const seg = (start: number, end: number) => clamp((p - start) / (end - start));
 
-  // Car: drives fully across the screen (0 -> 0.85), then it's gone
-  const carP = seg(0, 0.85);
-  const carX = -120 + carP * 260; // -120% -> +140% (fully exits right)
-  // Natural wheel rotation — proportional to distance travelled
-  const wheelRotate = carP * 1440; // 4 full turns across the trip
-  // Tiny vertical bob for life
+  // Intro black panel occupies 0 -> 0.15 of scroll
+  const introOut = seg(0.08, 0.18); // 0..1 as intro fades away
+  const introOpacity = 1 - introOut;
+
+  // Car: drives across (starts once intro is gone)
+  const carP = seg(0.15, 0.9);
+  const carX = -120 + carP * 260; // -120% -> +140%
+  const wheelRotate = carP * 1440;
   const carBob = Math.sin(carP * Math.PI * 6) * 2;
 
-  // Text reveals — staggered, revealed as/after the car sweeps past them
-  // Ordered so each line appears just after the car clears that area
-  const eyebrowP = seg(0.18, 0.32);
-  const titleP = seg(0.32, 0.5);
-  const subP = seg(0.5, 0.65);
-  const ctaP = seg(0.65, 0.78);
-  const statsP = seg(0.78, 0.9);
+  // Text reveals — staggered, after car sweeps past
+  const eyebrowP = seg(0.28, 0.4);
+  const titleP = seg(0.4, 0.55);
+  const subP = seg(0.55, 0.68);
+  const ctaP = seg(0.68, 0.8);
+  const statsP = seg(0.8, 0.92);
 
   const revealStyle = (v: number) => ({
     opacity: v,
@@ -138,7 +139,7 @@ function Hero() {
     <section
       ref={sectionRef}
       className="relative bg-background"
-      style={{ height: "300vh" }}
+      style={{ height: "340vh" }}
     >
       <div className="sticky top-0 flex h-screen items-center overflow-hidden border-b border-border">
         <div className="relative mx-auto w-full max-w-[1400px] px-6 lg:px-10">
@@ -229,16 +230,16 @@ function Hero() {
               />
               {/* Rotating wheels — positioned to match the sedan illustration */}
               {[
-                { left: "26.4%" },
-                { left: "79.0%" },
+                { left: "27.3%" },
+                { left: "80.3%" },
               ].map((pos, i) => (
                 <div
                   key={i}
                   className="absolute"
                   style={{
                     left: pos.left,
-                    top: "58.5%",
-                    width: "10%",
+                    top: "56.5%",
+                    width: "12.8%",
                     aspectRatio: "1 / 1",
                     transform: `translate(-50%, -50%) rotate(${wheelRotate}deg)`,
                     willChange: "transform",
